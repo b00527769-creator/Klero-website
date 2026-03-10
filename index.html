@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" id="html-root">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -29,12 +29,28 @@
     .section-title em { font-style: italic; color: var(--gold); }
     .section-intro { font-size: 1.05rem; color: var(--slate); max-width: 620px; margin-top: 1rem; }
 
+    /* LANGUAGE SWITCHER */
+    .lang-switcher {
+      display: flex; gap: 0.35rem; align-items: center;
+      margin-right: 1.2rem;
+    }
+    .lang-btn {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.28rem 0.6rem;
+      border: 1.5px solid var(--border); border-radius: 2px;
+      background: transparent; color: var(--muted);
+      cursor: pointer; transition: all 0.2s; font-family: 'Lato', sans-serif;
+    }
+    .lang-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .lang-btn.active { background: var(--gold); border-color: var(--gold); color: #fff; }
+
     /* MOBILE OVERLAY */
     .mobile-overlay { display: none; position: fixed; inset: 0; background: var(--cream); z-index: 900; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
     .mobile-overlay.open { display: flex; }
     .mobile-overlay a { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--ink); transition: color 0.25s; }
     .mobile-overlay a:hover { color: var(--gold); }
     .mobile-overlay .m-cta { margin-top: 1rem; padding: 0.85rem 2.2rem; background: var(--gold); color: #fff; font-family: 'Lato', sans-serif; font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; border-radius: 2px; }
+    .mobile-lang { display: flex; gap: 0.5rem; margin-top: 1rem; }
 
     /* NAV */
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 800; background: rgba(250,247,242,0.94); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
@@ -44,6 +60,7 @@
     .nav-links { display: flex; gap: 2.2rem; list-style: none; }
     .nav-links a { font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate); font-weight: 400; transition: color 0.25s; padding-bottom: 2px; border-bottom: 1.5px solid transparent; }
     .nav-links a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+    .nav-right { display: flex; align-items: center; gap: 0.5rem; }
     .nav-phone { display: flex; align-items: center; gap: 0.5rem; font-size: 0.88rem; font-weight: 700; color: var(--ink); transition: color 0.25s; }
     .nav-phone:hover { color: var(--gold); }
     .nav-phone svg { width: 15px; height: 15px; }
@@ -58,145 +75,146 @@
     .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 5rem 3.5rem 5rem 5rem; }
     .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--gold-pale); color: var(--gold); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.45rem 1rem; border-radius: 2px; margin-bottom: 1.8rem; width: fit-content; opacity: 0; animation: fadeUp 0.7s 0.1s forwards; }
     .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.6rem, 4.5vw, 4rem); font-weight: 400; line-height: 1.12; color: var(--ink); margin-bottom: 1.6rem; opacity: 0; animation: fadeUp 0.7s 0.25s forwards; }
-    .hero-title em { font-style: italic; color: var(--gold); }
-    .hero-desc { font-size: 1.05rem; color: var(--slate); max-width: 450px; margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 0.7s 0.4s forwards; }
-    .hero-ctas { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.7s 0.55s forwards; }
-    .cta-gold { padding: 0.9rem 2.2rem; background: var(--gold); color: #fff; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; transition: background 0.25s, transform 0.2s; border-radius: 2px; }
-    .cta-gold:hover { background: #9a7820; transform: translateY(-1px); }
-    .cta-outline { padding: 0.9rem 2rem; border: 1.5px solid var(--border); color: var(--slate); font-size: 0.8rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; transition: border-color 0.25s, color 0.25s; border-radius: 2px; }
+    .hero-title em { font-style: italic; color: var(--gold); display: block; }
+    .hero-sub { font-size: 1.08rem; color: var(--slate); line-height: 1.75; max-width: 480px; margin-bottom: 2.8rem; opacity: 0; animation: fadeUp 0.7s 0.4s forwards; }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.7s 0.55s forwards; }
+    .cta-gold { padding: 1rem 2.2rem; background: var(--gold); color: #fff; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 2px; transition: opacity 0.2s; }
+    .cta-gold:hover { opacity: 0.88; }
+    .cta-outline { padding: 1rem 2.2rem; border: 1.5px solid var(--border); color: var(--slate); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 2px; transition: border-color 0.2s, color 0.2s; }
     .cta-outline:hover { border-color: var(--gold); color: var(--gold); }
-    .hero-stats { display: flex; gap: 2.5rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); opacity: 0; animation: fadeUp 0.7s 0.7s forwards; }
-    .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 600; color: var(--gold); }
-    .stat-lbl { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.06em; margin-top: 0.1rem; }
-    .hero-right { position: relative; background: var(--warm); overflow: hidden; display: flex; align-items: center; justify-content: center; }
-    .hero-illustration { width: 72%; opacity: 0; animation: fadeIn 1.2s 0.4s forwards; }
-    .hero-right::before { content: 'κλῆρος'; position: absolute; font-family: 'Playfair Display', serif; font-size: 9rem; font-style: italic; color: rgba(184,146,42,0.06); bottom: 2rem; right: -1rem; line-height: 1; pointer-events: none; }
-    .hero-divider { position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, transparent, var(--gold), transparent); }
+    .hero-stats { display: flex; gap: 3rem; margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid var(--border); opacity: 0; animation: fadeUp 0.7s 0.7s forwards; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2.1rem; font-weight: 600; color: var(--gold); line-height: 1; }
+    .stat-label { font-size: 0.76rem; color: var(--muted); margin-top: 0.3rem; line-height: 1.4; letter-spacing: 0.04em; }
+    .hero-right { background: var(--warm); display: flex; align-items: center; justify-content: center; padding: 3rem; opacity: 0; animation: fadeIn 1s 0.6s forwards; }
+    .hero-right svg { width: 100%; max-width: 460px; height: auto; }
 
     /* STRIP */
     .strip { background: var(--ink); padding: 1.4rem 0; }
-    .strip-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: flex; gap: 2rem; justify-content: space-around; flex-wrap: wrap; }
-    .strip-item { display: flex; align-items: center; gap: 0.7rem; color: rgba(255,255,255,0.7); font-size: 0.82rem; letter-spacing: 0.03em; }
-    .strip-item svg { flex-shrink: 0; width: 17px; height: 17px; color: var(--gold); }
+    .strip-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+    .strip-item { display: flex; align-items: center; gap: 0.7rem; }
+    .strip-item svg { width: 16px; height: 16px; color: var(--gold); flex-shrink: 0; }
+    .strip-item span { font-size: 0.82rem; color: rgba(255,255,255,0.75); letter-spacing: 0.04em; }
 
     /* HOW */
-    .how { padding: 7rem 0; background: var(--cream); }
-    .how-header { text-align: center; margin-bottom: 4.5rem; }
-    .how-header .section-intro { margin: 1rem auto 0; text-align: center; }
-    .steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; position: relative; }
-    .steps::after { content: ''; position: absolute; top: 3.5rem; left: calc(100%/6); right: calc(100%/6); height: 1px; background: linear-gradient(to right, transparent, var(--border), transparent); pointer-events: none; }
-    .step { padding: 0 2.5rem 2rem; text-align: center; transition: transform 0.3s; }
-    .step:hover { transform: translateY(-6px); }
-    .step-circle { width: 7rem; height: 7rem; border: 1.5px solid var(--gold); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 1.8rem; background: var(--cream); position: relative; z-index: 1; transition: background 0.3s; }
-    .step:hover .step-circle { background: var(--gold-pale); }
-    .step-num { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 600; color: var(--gold); line-height: 1; }
-    .step-roman { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
-    .step h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 400; color: var(--ink); margin-bottom: 0.8rem; }
-    .step p { font-size: 0.92rem; color: var(--slate); }
+    .how { padding: 7rem 0; }
+    .how-header { text-align: center; margin-bottom: 5rem; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; position: relative; }
+    .steps::after { content: ''; position: absolute; top: 2.8rem; left: calc(16.66% + 1rem); right: calc(16.66% + 1rem); height: 1px; background: var(--border); z-index: 0; }
+    .step { text-align: center; padding: 0 2rem 2rem; position: relative; z-index: 1; }
+    .step-num { width: 56px; height: 56px; border-radius: 50%; background: var(--cream); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.8rem; font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--gold); font-weight: 600; }
+    .step h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 400; margin-bottom: 0.8rem; color: var(--ink); }
+    .step p { font-size: 0.92rem; color: var(--slate); line-height: 1.75; }
 
     /* ABOUT */
     .about { padding: 7rem 0; background: var(--warm); }
-    .about-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 6rem; align-items: center; }
-    .about-quote { background: var(--cream); border-left: 3px solid var(--gold); padding: 1.6rem 1.8rem; margin: 2rem 0; border-radius: 0 4px 4px 0; }
-    .about-quote p { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.1rem; color: var(--ink); line-height: 1.6; }
-    .about-quote cite { display: block; margin-top: 0.7rem; font-style: normal; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); font-weight: 700; }
-    .about-body p { font-size: 0.97rem; color: var(--slate); margin-bottom: 1.1rem; }
-    .about-body strong { color: var(--ink); font-weight: 700; }
-    .accreditation-box { display: flex; align-items: flex-start; gap: 1rem; background: var(--cream); border: 1px solid var(--border); border-radius: 4px; padding: 1.2rem 1.4rem; margin-top: 1.8rem; }
-    .accreditation-box svg { flex-shrink: 0; width: 26px; height: 26px; color: var(--gold); margin-top: 2px; }
-    .accreditation-box p { font-size: 0.87rem; color: var(--slate); margin: 0; }
-    .accreditation-box strong { color: var(--ink); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+    .about-quote { font-family: 'Playfair Display', serif; font-size: clamp(1.35rem, 2.5vw, 1.75rem); font-style: italic; color: var(--ink); line-height: 1.55; border-left: 3px solid var(--gold); padding-left: 1.8rem; margin-bottom: 1.5rem; }
+    .about-attr { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding-left: 1.8rem; }
+    .about-right p { color: var(--slate); margin-bottom: 1.2rem; }
+    .accred-box { margin-top: 2rem; padding: 1.2rem 1.5rem; background: var(--cream); border: 1px solid var(--border); border-radius: 3px; display: flex; align-items: flex-start; gap: 1rem; }
+    .accred-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .accred-box strong { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .accred-box span { font-size: 0.8rem; color: var(--slate); }
 
     /* WHY */
-    .why { padding: 7rem 0; background: var(--ink); color: #fff; }
+    .why { padding: 7rem 0; }
     .why-header { text-align: center; margin-bottom: 4rem; }
-    .why-header .section-title { color: #fff; }
-    .why-header .section-intro { color: rgba(255,255,255,0.55); margin: 1rem auto 0; text-align: center; }
-    .why-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5px; background: rgba(255,255,255,0.05); }
-    .why-card { background: var(--ink); padding: 2.5rem 2.8rem; border: 1px solid rgba(255,255,255,0.07); transition: background 0.3s, border-color 0.3s; }
-    .why-card:hover { background: rgba(184,146,42,0.07); border-color: rgba(184,146,42,0.3); }
-    .why-icon { width: 48px; height: 48px; background: rgba(184,146,42,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.4rem; font-size: 1.3rem; }
-    .why-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 400; color: var(--gold-pale); margin-bottom: 0.7rem; }
-    .why-card p { font-size: 0.9rem; color: rgba(255,255,255,0.55); line-height: 1.75; }
+    .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--border); }
+    .why-card { padding: 2.5rem 2rem; border-right: 1px solid var(--border); }
+    .why-card:last-child { border-right: none; }
+    .why-icon { font-size: 1.8rem; margin-bottom: 1.2rem; }
+    .why-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 400; margin-bottom: 0.7rem; }
+    .why-card p { font-size: 0.88rem; color: var(--slate); line-height: 1.7; }
 
     /* ASSETS */
-    .assets { padding: 7rem 0; background: var(--cream); }
-    .assets-header { text-align: center; margin-bottom: 4rem; }
-    .assets-header .section-intro { margin: 1rem auto 0; text-align: center; }
-    .assets-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
-    .asset-card { background: var(--warm); border: 1px solid var(--border); border-radius: 4px; padding: 2rem; transition: box-shadow 0.3s, transform 0.3s; }
-    .asset-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.07); transform: translateY(-4px); }
-    .asset-icon { font-size: 1.8rem; margin-bottom: 1rem; }
-    .asset-card h4 { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 400; color: var(--ink); margin-bottom: 0.6rem; }
-    .asset-card p { font-size: 0.87rem; color: var(--slate); line-height: 1.7; }
+    .assets { padding: 7rem 0; background: var(--warm); }
+    .assets-header { margin-bottom: 3.5rem; }
+    .assets-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .asset-card { background: var(--cream); border: 1px solid var(--border); padding: 2rem; border-radius: 3px; transition: box-shadow 0.3s; }
+    .asset-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    .asset-icon { font-size: 2rem; margin-bottom: 1.2rem; }
+    .asset-card h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 400; margin-bottom: 0.6rem; }
+    .asset-card p { font-size: 0.88rem; color: var(--slate); line-height: 1.7; }
+    .asset-avg { margin-top: 1rem; font-size: 0.76rem; font-weight: 700; letter-spacing: 0.08em; color: var(--gold); text-transform: uppercase; }
 
     /* ASSOCIATIONS */
-    .associations { padding: 7rem 0; background: var(--warm); }
-    .associations-header { text-align: center; margin-bottom: 4rem; }
-    .associations-header .section-intro { margin: 1rem auto 0; text-align: center; }
-    .assoc-intro-box { max-width: 800px; margin: 0 auto 3.5rem; background: var(--cream); border: 1px solid var(--border); border-radius: 6px; padding: 2rem 2.5rem; text-align: center; }
-    .assoc-intro-box p { font-size: 0.97rem; color: var(--slate); line-height: 1.8; }
-    .assoc-intro-box strong { color: var(--ink); font-weight: 700; }
-    .assoc-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
-    .assoc-card { background: var(--cream); border: 1px solid var(--border); border-radius: 6px; padding: 2.2rem 2rem; transition: box-shadow 0.3s, transform 0.3s; display: flex; flex-direction: column; }
-    .assoc-card:hover { box-shadow: 0 10px 35px rgba(0,0,0,0.08); transform: translateY(-5px); }
-    .assoc-tag { display: inline-block; padding: 0.3rem 0.8rem; background: var(--green-pale); color: var(--green); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 2px; margin-bottom: 1.2rem; width: fit-content; }
-    .assoc-card h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 400; color: var(--ink); margin-bottom: 0.9rem; }
-    .assoc-card p { font-size: 0.9rem; color: var(--slate); line-height: 1.75; flex: 1; }
-    .assoc-metric { margin-top: 1.5rem; padding-top: 1.2rem; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 0.7rem; }
-    .assoc-metric-num { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 600; color: var(--green); }
-    .assoc-metric-lbl { font-size: 0.78rem; color: var(--muted); line-height: 1.4; }
+    .associations { padding: 7rem 0; }
+    .assoc-intro-box { background: var(--warm); border: 1px solid var(--border); border-radius: 4px; padding: 2.5rem 3rem; margin-bottom: 3.5rem; display: flex; align-items: flex-start; gap: 1.5rem; }
+    .assoc-intro-box .ai-icon { font-size: 2rem; flex-shrink: 0; margin-top: 0.2rem; }
+    .assoc-intro-box p { font-size: 0.97rem; color: var(--slate); line-height: 1.75; }
+    .assoc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .assoc-card { border: 1px solid var(--border); border-radius: 4px; padding: 2.2rem; background: #fff; transition: box-shadow 0.3s, border-color 0.3s; }
+    .assoc-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); border-color: var(--gold); }
+    .assoc-emoji { font-size: 2.2rem; margin-bottom: 1rem; }
+    .assoc-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; margin-bottom: 0.3rem; color: var(--ink); }
+    .assoc-since { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+    .assoc-card p { font-size: 0.88rem; color: var(--slate); line-height: 1.7; }
+    .assoc-stat { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.82rem; font-weight: 700; color: var(--green); }
+
+    /* REVIEWS */
+    .reviews { padding: 7rem 0; background: var(--ink); }
+    .reviews-header { text-align: center; margin-bottom: 3.5rem; }
+    .reviews-header .section-title { color: #fff; }
+    .reviews-header .section-intro { color: rgba(255,255,255,0.55); margin: 1rem auto 0; text-align: center; }
+    .reviews-score { display: flex; flex-direction: column; align-items: center; margin-bottom: 3.5rem; }
+    .reviews-stars { display: flex; gap: 0.3rem; margin-bottom: 0.8rem; }
+    .reviews-stars svg { width: 28px; height: 28px; fill: var(--gold); }
+    .reviews-num { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 600; color: #fff; line-height: 1; margin-bottom: 0.4rem; }
+    .reviews-count { font-size: 0.85rem; color: rgba(255,255,255,0.5); letter-spacing: 0.08em; }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
+    .review-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; padding: 1.8rem; transition: border-color 0.3s, background 0.3s; }
+    .review-card:hover { background: rgba(184,146,42,0.07); border-color: rgba(184,146,42,0.3); }
+    .review-stars { display: flex; gap: 0.2rem; margin-bottom: 1rem; }
+    .review-stars svg { width: 14px; height: 14px; fill: var(--gold); }
+    .review-text { font-size: 0.9rem; color: rgba(255,255,255,0.75); line-height: 1.75; margin-bottom: 1.2rem; font-style: italic; }
+    .review-author { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); }
+    .review-date { font-size: 0.72rem; color: rgba(255,255,255,0.3); margin-top: 0.2rem; }
+    .reviews-cta { text-align: center; }
+    .reviews-cta a { display: inline-flex; align-items: center; gap: 0.8rem; padding: 1rem 2.5rem; border: 1.5px solid rgba(184,146,42,0.5); color: var(--gold); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 3px; transition: background 0.25s, border-color 0.25s, color 0.25s; }
+    .reviews-cta a:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+    .reviews-cta a svg { width: 18px; height: 18px; }
 
     /* TEAM */
-    .team { padding: 7rem 0; background: var(--cream); }
+    .team { padding: 7rem 0; background: var(--warm); }
     .team-header { text-align: center; margin-bottom: 4rem; }
-    .team-header .section-intro { margin: 1rem auto 0; text-align: center; }
-    .team-founders { display: grid; grid-template-columns: repeat(2,1fr); gap: 2.5rem; max-width: 700px; margin: 0 auto 3rem; }
-    .founder-card { background: var(--warm); border: 1px solid var(--border); border-radius: 6px; padding: 2.2rem 2rem; text-align: center; }
-    .founder-avatar { width: 80px; height: 80px; border-radius: 50%; background: var(--gold-pale); border: 2px solid var(--gold); margin: 0 auto 1.2rem; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); font-weight: 600; }
-    .founder-card h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 400; color: var(--ink); margin-bottom: 0.3rem; }
-    .founder-card .role { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 0.8rem; }
-    .founder-card p { font-size: 0.87rem; color: var(--slate); }
-    .team-note { text-align: center; font-size: 0.92rem; color: var(--slate); background: var(--warm); border: 1px solid var(--border); border-radius: 4px; padding: 1.2rem 2rem; max-width: 600px; margin: 0 auto; }
-    .team-note strong { color: var(--ink); }
+    .team-founders { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; max-width: 700px; margin: 0 auto 2.5rem; }
+    .founder-card { background: var(--cream); border: 1px solid var(--border); padding: 2.5rem 2rem; text-align: center; border-radius: 3px; }
+    .founder-avatar { width: 68px; height: 68px; border-radius: 50%; background: var(--gold-pale); color: var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.4rem; margin: 0 auto 1.2rem; }
+    .founder-card h4 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .role { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .founder-card p { font-size: 0.88rem; color: var(--slate); line-height: 1.7; }
+    .team-note { background: var(--cream); border: 1px solid var(--border); border-radius: 3px; padding: 1.5rem 2rem; text-align: center; font-size: 0.92rem; color: var(--slate); max-width: 700px; margin: 0 auto; }
 
     /* FAQ */
-    .faq { padding: 7rem 0; background: var(--warm); }
-    .faq-header { text-align: center; margin-bottom: 4rem; }
-    .faq-list { max-width: 780px; margin: 0 auto; }
+    .faq { padding: 7rem 0; }
+    .faq-header { text-align: center; margin-bottom: 3.5rem; }
+    .faq-list { max-width: 760px; margin: 0 auto; }
     .faq-item { border-bottom: 1px solid var(--border); }
-    .faq-q { width: 100%; background: none; border: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 0; font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 400; color: var(--ink); text-align: left; transition: color 0.25s; }
-    .faq-q:hover { color: var(--gold); }
-    .faq-q svg { flex-shrink: 0; width: 20px; height: 20px; color: var(--gold); transition: transform 0.3s; }
+    .faq-q { width: 100%; text-align: left; padding: 1.4rem 0; background: none; border: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; font-family: 'Lato', sans-serif; font-size: 0.97rem; font-weight: 400; color: var(--ink); }
+    .faq-q svg { width: 18px; height: 18px; color: var(--gold); flex-shrink: 0; transition: transform 0.3s; }
     .faq-q.open svg { transform: rotate(45deg); }
-    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; font-size: 0.93rem; color: var(--slate); line-height: 1.8; }
+    .faq-a { font-size: 0.9rem; color: var(--slate); line-height: 1.8; max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s; }
     .faq-a.open { max-height: 400px; padding-bottom: 1.4rem; }
 
     /* CONTACT */
-    .contact { padding: 7rem 0; background: var(--cream); }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
-    .contact-left .section-title { margin-bottom: 0.8rem; }
-    .contact-left p { font-size: 0.97rem; color: var(--slate); margin-bottom: 2rem; }
-    .contact-details { display: flex; flex-direction: column; gap: 1rem; }
-    .contact-detail { display: flex; gap: 1rem; align-items: flex-start; }
-    .contact-detail svg { flex-shrink: 0; width: 20px; height: 20px; color: var(--gold); margin-top: 2px; }
-    .contact-detail span { font-size: 0.92rem; color: var(--slate); line-height: 1.6; }
-    .contact-detail strong { display: block; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.15rem; font-weight: 700; }
-    .cform { display: flex; flex-direction: column; gap: 1.1rem; }
+    .contact { padding: 7rem 0; background: var(--warm); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; }
+    .contact-info h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 400; margin-bottom: 1rem; }
+    .contact-info p { color: var(--slate); margin-bottom: 2rem; }
+    .c-detail { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.9rem; font-size: 0.92rem; color: var(--slate); }
+    .c-detail svg { width: 16px; height: 16px; color: var(--gold); flex-shrink: 0; }
+    .field { margin-bottom: 1.2rem; }
+    .field label { display: block; font-size: 0.76rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate); margin-bottom: 0.5rem; }
+    .field input, .field select, .field textarea { width: 100%; padding: 0.85rem 1rem; background: var(--cream); border: 1px solid var(--border); border-radius: 2px; font-family: 'Lato', sans-serif; font-size: 0.92rem; color: var(--ink); transition: border-color 0.2s; font-size: 1rem; }
+    .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gold); }
+    .field textarea { resize: vertical; min-height: 120px; }
     .cform-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .field { display: flex; flex-direction: column; gap: 0.35rem; }
-    .field label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--slate); }
-    .field input, .field textarea, .field select { padding: 0.85rem 1rem; background: var(--warm); border: 1px solid var(--border); font-family: 'Lato', sans-serif; font-size: 0.95rem; color: var(--ink); outline: none; border-radius: 3px; transition: border-color 0.25s; -webkit-appearance: none; }
-    .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--gold); }
-    .field input::placeholder, .field textarea::placeholder { color: var(--muted); }
-    .field textarea { resize: vertical; min-height: 110px; }
-    .cform-submit { padding: 1rem 2rem; background: var(--gold); color: #fff; border: none; font-family: 'Lato', sans-serif; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; border-radius: 3px; transition: background 0.25s, transform 0.2s; }
-    .cform-submit:hover { background: #9a7820; transform: translateY(-1px); }
-    .cform-note { font-size: 0.75rem; color: var(--muted); }
+    .btn-submit { width: 100%; padding: 1rem; background: var(--gold); color: #fff; border: none; font-family: 'Lato', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; border-radius: 2px; margin-top: 0.5rem; transition: opacity 0.2s; }
+    .btn-submit:hover { opacity: 0.88; }
 
     /* FOOTER */
-    footer { background: var(--ink); color: rgba(255,255,255,0.5); padding: 4rem 0 2rem; }
-    .footer-grid { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 3.5rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.08); max-width: 1100px; margin: 0 auto; padding-left: 2rem; padding-right: 2rem; }
+    footer { background: var(--ink); color: rgba(255,255,255,0.5); padding: 4rem 0 0; }
+    .footer-grid { max-width: 1100px; margin: 0 auto; padding: 0 2rem 3rem; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; }
     .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 600; color: #fff; margin-bottom: 0.8rem; }
     .footer-logo span { color: var(--gold); }
     .footer-tagline { font-size: 0.87rem; line-height: 1.7; max-width: 220px; }
@@ -204,7 +222,7 @@
     .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
     .footer-col li a { font-size: 0.85rem; color: rgba(255,255,255,0.5); transition: color 0.25s; }
     .footer-col li a:hover { color: var(--gold); }
-    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; max-width: 1100px; margin: 0 auto; padding-left: 2rem; padding-right: 2rem; font-size: 0.76rem; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding: 2rem; max-width: 1100px; margin: 0 auto; font-size: 0.76rem; border-top: 1px solid rgba(255,255,255,0.08); }
     .footer-bottom a { color: rgba(255,255,255,0.35); transition: color 0.25s; }
     .footer-bottom a:hover { color: var(--gold); }
 
@@ -223,9 +241,13 @@
       .contact-grid { grid-template-columns: 1fr; gap: 3.5rem; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
       .assoc-grid { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .why-card:nth-child(2) { border-right: none; }
+      .why-card:nth-child(3) { border-top: 1px solid var(--border); }
+      .why-card:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
     }
     @media (max-width: 768px) {
-      .nav-links, .nav-phone { display: none; }
+      .nav-links, .nav-phone, .lang-switcher { display: none; }
       .hamburger { display: flex; }
       .hero-left { padding: 3rem 1.5rem 2.5rem; }
       .hero-ctas { flex-direction: column; }
@@ -235,14 +257,17 @@
       .steps { grid-template-columns: 1fr; }
       .steps::after { display: none; }
       .step { padding: 0 1rem 2.5rem; }
-      .why-grid { grid-template-columns: 1fr; gap: 1px; }
+      .why-grid { grid-template-columns: 1fr; }
+      .why-card { border-right: none !important; border-top: 1px solid var(--border) !important; }
+      .why-card:first-child { border-top: none !important; }
       .assets-grid { grid-template-columns: 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
       .team-founders { grid-template-columns: 1fr; max-width: 400px; }
       .cform-row { grid-template-columns: 1fr; }
       .strip-inner { gap: 0.8rem; justify-content: flex-start; }
       .footer-grid { grid-template-columns: 1fr; gap: 2rem; padding-bottom: 2rem; }
       .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
-      .how, .about, .why, .assets, .associations, .team, .faq, .contact { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+      .how, .about, .why, .assets, .associations, .reviews, .team, .faq, .contact { padding-top: 4.5rem; padding-bottom: 4.5rem; }
       .field input, .field select, .field textarea { font-size: 1rem; }
     }
     @media (max-width: 480px) {
@@ -250,18 +275,29 @@
       .stat-num { font-size: 1.6rem; }
       .assoc-intro-box { padding: 1.5rem; }
     }
+
+    /* i18n hidden */
+    [data-lang] { display: none; }
+    [data-lang].active { display: block; }
+    span[data-lang].active { display: inline; }
   </style>
 </head>
 <body>
 
 <!-- MOBILE OVERLAY -->
 <div class="mobile-overlay" id="mobileOverlay">
-  <a href="#how" onclick="closeMenu()">Comment ça marche</a>
-  <a href="#about" onclick="closeMenu()">Qui sommes-nous</a>
-  <a href="#associations" onclick="closeMenu()">Nos associations</a>
+  <a href="#how" onclick="closeMenu()" data-i18n="nav_how">Comment ça marche</a>
+  <a href="#about" onclick="closeMenu()" data-i18n="nav_about">Qui sommes-nous</a>
+  <a href="#associations" onclick="closeMenu()" data-i18n="nav_assoc">Nos associations</a>
+  <a href="#avis" onclick="closeMenu()" data-i18n="nav_reviews">Avis clients</a>
   <a href="#faq" onclick="closeMenu()">FAQ</a>
-  <a href="#contact" onclick="closeMenu()">Nous contacter</a>
-  <a href="#contact" class="m-cta" onclick="closeMenu()">J'ai été contacté</a>
+  <a href="#contact" onclick="closeMenu()" data-i18n="nav_contact">Nous contacter</a>
+  <a href="#contact" class="m-cta" onclick="closeMenu()" data-i18n="nav_cta">J'ai été contacté</a>
+  <div class="mobile-lang">
+    <button class="lang-btn active" onclick="setLang('fr');closeMenu()">FR</button>
+    <button class="lang-btn" onclick="setLang('en');closeMenu()">EN</button>
+    <button class="lang-btn" onclick="setLang('it');closeMenu()">IT</button>
+  </div>
 </div>
 
 <!-- NAV -->
@@ -269,15 +305,23 @@
   <div class="nav-inner">
     <a href="#" class="nav-logo">Kl<span>é</span>ro</a>
     <ul class="nav-links">
-      <li><a href="#how">Comment ça marche</a></li>
-      <li><a href="#about">Qui sommes-nous</a></li>
-      <li><a href="#associations">Nos associations</a></li>
+      <li><a href="#how" data-i18n="nav_how">Comment ça marche</a></li>
+      <li><a href="#about" data-i18n="nav_about">Qui sommes-nous</a></li>
+      <li><a href="#associations" data-i18n="nav_assoc">Nos associations</a></li>
+      <li><a href="#avis" data-i18n="nav_reviews">Avis clients</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
-    <a href="tel:0173711363" class="nav-phone">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.07 6.07l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      01 73 71 13 63
-    </a>
+    <div class="nav-right">
+      <div class="lang-switcher">
+        <button class="lang-btn active" id="btn-fr" onclick="setLang('fr')">FR</button>
+        <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" id="btn-it" onclick="setLang('it')">IT</button>
+      </div>
+      <a href="tel:0173711363" class="nav-phone">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.07 6.07l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        01 73 71 13 63
+      </a>
+    </div>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -287,58 +331,63 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left">
-    <div class="hero-badge">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-      Cabinet de généalogie successorale · Paris
-    </div>
-    <h1 class="hero-title">Votre héritage<br>vous <em>appartient</em></h1>
-    <p class="hero-desc">Kléro Généalogie retrouve et restitue les actifs financiers oubliés lors de successions. Fondé par un avocat du barreau de Paris, notre cabinet accompagne les familles avec rigueur, bienveillance et transparence.</p>
+    <div class="hero-badge" data-i18n="hero_badge">🏛 Cabinet de généalogie successorale accrédité</div>
+    <h1 class="hero-title">
+      <span data-i18n="hero_title1">Un héritage oublié</span>
+      <em data-i18n="hero_title2">vous attend peut-être.</em>
+    </h1>
+    <p class="hero-sub" data-i18n="hero_sub">7 % des Français décédés laissent des actifs non transmis à leurs héritiers. Notre cabinet les identifie et vous accompagne jusqu'au remboursement — sans aucun frais initial.</p>
     <div class="hero-ctas">
-      <a href="#how" class="cta-gold">Découvrir notre méthode</a>
-      <a href="#contact" class="cta-outline">J'ai été contacté</a>
+      <a href="#how" class="cta-gold" data-i18n="hero_cta1">Découvrir notre méthode</a>
+      <a href="#contact" class="cta-outline" data-i18n="hero_cta2">J'ai été contacté</a>
     </div>
     <div class="hero-stats">
-      <div><div class="stat-num">7 %</div><div class="stat-lbl">des Français concernés</div></div>
-      <div><div class="stat-num">0 €</div><div class="stat-lbl">de frais si rien trouvé</div></div>
-      <div><div class="stat-num">2022</div><div class="stat-lbl">Fondé par un avocat</div></div>
+      <div>
+        <div class="stat-num">7%</div>
+        <div class="stat-label" data-i18n="stat1">des Français décédés concernés</div>
+      </div>
+      <div>
+        <div class="stat-num">0€</div>
+        <div class="stat-label" data-i18n="stat2">de frais si rien n'est trouvé</div>
+      </div>
+      <div>
+        <div class="stat-num">2022</div>
+        <div class="stat-label" data-i18n="stat3">Fondé à Paris par un avocat</div>
+      </div>
     </div>
   </div>
   <div class="hero-right">
-    <div class="hero-divider"></div>
-    <svg class="hero-illustration" viewBox="0 0 380 460" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <line x1="190" y1="420" x2="190" y2="300" stroke="#b8922a" stroke-width="1.5" opacity="0.45"/>
-      <line x1="190" y1="315" x2="110" y2="240" stroke="#b8922a" stroke-width="1.2" opacity="0.4"/>
-      <line x1="190" y1="315" x2="270" y2="240" stroke="#b8922a" stroke-width="1.2" opacity="0.4"/>
-      <line x1="110" y1="240" x2="60" y2="165" stroke="#b8922a" stroke-width="1" opacity="0.33"/>
-      <line x1="110" y1="240" x2="150" y2="165" stroke="#b8922a" stroke-width="1" opacity="0.33"/>
-      <line x1="270" y1="240" x2="230" y2="165" stroke="#b8922a" stroke-width="1" opacity="0.33"/>
-      <line x1="270" y1="240" x2="320" y2="165" stroke="#b8922a" stroke-width="1" opacity="0.33"/>
-      <line x1="60" y1="165" x2="38" y2="100" stroke="#b8922a" stroke-width="0.8" opacity="0.22"/>
-      <line x1="60" y1="165" x2="80" y2="100" stroke="#b8922a" stroke-width="0.8" opacity="0.22"/>
-      <line x1="150" y1="165" x2="130" y2="100" stroke="#b8922a" stroke-width="0.8" opacity="0.22"/>
-      <line x1="150" y1="165" x2="168" y2="100" stroke="#b8922a" stroke-width="0.8" opacity="0.22"/>
-      <line x1="230" y1="165" x2="212" y2="100" stroke="#b8922a" stroke-width="0.8" opacity="0.22"/>
-      <line x1="230" y1="165" x2="248" y2="100" stroke="#b8922a" stroke-width="0.8" opacity="0.22"/>
-      <line x1="320" y1="165" x2="300" y2="100" stroke="#b8922a" stroke-width="0.8" opacity="0.22"/>
-      <line x1="320" y1="165" x2="342" y2="100" stroke="#b8922a" stroke-width="0.8" opacity="0.22"/>
-      <circle cx="190" cy="420" r="6" fill="#b8922a" opacity="0.85"/>
-      <circle cx="190" cy="420" r="14" stroke="#b8922a" stroke-width="0.7" opacity="0.2"/>
-      <circle cx="190" cy="315" r="5" fill="#b8922a" opacity="0.72"/>
-      <circle cx="110" cy="240" r="4.5" fill="#b8922a" opacity="0.62"/>
-      <circle cx="270" cy="240" r="4.5" fill="#b8922a" opacity="0.62"/>
-      <circle cx="60" cy="165" r="4" fill="#b8922a" opacity="0.52"/>
-      <circle cx="150" cy="165" r="4" fill="#b8922a" opacity="0.52"/>
-      <circle cx="230" cy="165" r="4" fill="#b8922a" opacity="0.52"/>
-      <circle cx="320" cy="165" r="4" fill="#b8922a" opacity="0.52"/>
-      <circle cx="38" cy="100" r="3" fill="#b8922a" opacity="0.35"/>
-      <circle cx="80" cy="100" r="3" fill="#b8922a" opacity="0.35"/>
-      <circle cx="130" cy="100" r="3" fill="#b8922a" opacity="0.35"/>
-      <circle cx="168" cy="100" r="3" fill="#b8922a" opacity="0.35"/>
-      <circle cx="212" cy="100" r="3" fill="#b8922a" opacity="0.35"/>
-      <circle cx="248" cy="100" r="3" fill="#b8922a" opacity="0.35"/>
-      <circle cx="300" cy="100" r="3" fill="#b8922a" opacity="0.35"/>
-      <circle cx="342" cy="100" r="3" fill="#b8922a" opacity="0.35"/>
-      <text x="190" y="446" text-anchor="middle" font-family="serif" font-size="10" fill="#b8922a" opacity="0.45" letter-spacing="3">κλῆρος</text>
+    <svg viewBox="0 0 460 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Family tree SVG -->
+      <rect x="170" y="20" width="120" height="60" rx="6" fill="#f0e4c3" stroke="#b8922a" stroke-width="1.5"/>
+      <text x="230" y="45" font-family="Playfair Display, serif" font-size="11" fill="#1e1a15" text-anchor="middle">Grand-père</text>
+      <text x="230" y="62" font-family="Lato, sans-serif" font-size="10" fill="#8a7e72" text-anchor="middle">Henri D.</text>
+      <rect x="20" y="130" width="120" height="60" rx="6" fill="#fff" stroke="#e8dece" stroke-width="1.5"/>
+      <text x="80" y="155" font-family="Playfair Display, serif" font-size="11" fill="#1e1a15" text-anchor="middle">Père</text>
+      <text x="80" y="172" font-family="Lato, sans-serif" font-size="10" fill="#8a7e72" text-anchor="middle">Robert D.</text>
+      <rect x="170" y="130" width="120" height="60" rx="6" fill="#fff" stroke="#e8dece" stroke-width="1.5"/>
+      <text x="230" y="155" font-family="Playfair Display, serif" font-size="11" fill="#1e1a15" text-anchor="middle">Tante</text>
+      <text x="230" y="172" font-family="Lato, sans-serif" font-size="10" fill="#8a7e72" text-anchor="middle">Marie D.</text>
+      <rect x="320" y="130" width="120" height="60" rx="6" fill="#fff" stroke="#e8dece" stroke-width="1.5"/>
+      <text x="380" y="155" font-family="Playfair Display, serif" font-size="11" fill="#1e1a15" text-anchor="middle">Oncle</text>
+      <text x="380" y="172" font-family="Lato, sans-serif" font-size="10" fill="#8a7e72" text-anchor="middle">Paul D.</text>
+      <rect x="95" y="260" width="120" height="60" rx="6" fill="#b8922a" stroke="#b8922a" stroke-width="1.5"/>
+      <text x="155" y="285" font-family="Playfair Display, serif" font-size="11" fill="#fff" text-anchor="middle">Héritier</text>
+      <text x="155" y="302" font-family="Lato, sans-serif" font-size="10" fill="rgba(255,255,255,0.8)" text-anchor="middle">Vous</text>
+      <rect x="245" y="260" width="120" height="60" rx="6" fill="#fff" stroke="#e8dece" stroke-width="1.5"/>
+      <text x="305" y="285" font-family="Playfair Display, serif" font-size="11" fill="#1e1a15" text-anchor="middle">Cousine</text>
+      <text x="305" y="302" font-family="Lato, sans-serif" font-size="10" fill="#8a7e72" text-anchor="middle">Sophie D.</text>
+      <line x1="230" y1="80" x2="230" y2="100" stroke="#e8dece" stroke-width="1.5"/>
+      <line x1="80" y1="100" x2="380" y2="100" stroke="#e8dece" stroke-width="1.5"/>
+      <line x1="80" y1="100" x2="80" y2="130" stroke="#e8dece" stroke-width="1.5"/>
+      <line x1="230" y1="100" x2="230" y2="130" stroke="#e8dece" stroke-width="1.5"/>
+      <line x1="380" y1="100" x2="380" y2="130" stroke="#e8dece" stroke-width="1.5"/>
+      <line x1="80" y1="190" x2="80" y2="230" stroke="#e8dece" stroke-width="1.5"/>
+      <line x1="80" y1="230" x2="305" y2="230" stroke="#e8dece" stroke-width="1.5"/>
+      <line x1="155" y1="230" x2="155" y2="260" stroke="#b8922a" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <line x1="305" y1="230" x2="305" y2="260" stroke="#e8dece" stroke-width="1.5"/>
+      <circle cx="155" cy="247" r="8" fill="#b8922a" opacity="0.2"/>
+      <text x="365" y="340" font-family="Lato, sans-serif" font-size="9" fill="#b8922a" opacity="0.7">Kléro Généalogie</text>
     </svg>
   </div>
 </section>
@@ -347,20 +396,20 @@
 <div class="strip">
   <div class="strip-inner">
     <div class="strip-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      Accrédité par le Ministère de la Culture
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+      <span data-i18n="strip1">Accrédité Ministère de la Culture</span>
     </div>
     <div class="strip-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-      Chaque dossier supervisé par un notaire
-    </div>
-    <div class="strip-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
-      Aucun frais si aucun actif récupéré
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <span data-i18n="strip2">Zéro frais si rien n'est trouvé</span>
     </div>
     <div class="strip-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      Des milliers de familles accompagnées
+      <span data-i18n="strip3">Supervisé par un notaire</span>
+    </div>
+    <div class="strip-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <span data-i18n="strip4">Données sécurisées & confidentielles</span>
     </div>
   </div>
 </div>
@@ -369,25 +418,24 @@
 <section class="how" id="how">
   <div class="container">
     <div class="how-header reveal">
-      <span class="label">Notre méthode</span>
-      <h2 class="section-title">Comment fonctionne Kléro ?</h2>
-      <p class="section-intro">Une approche structurée en trois étapes, pensée pour vous accompagner de la découverte à la restitution de vos actifs.</p>
+      <span class="label" data-i18n="how_label">Notre méthode</span>
+      <h2 class="section-title" data-i18n="how_title">Comment <em>ça marche</em> ?</h2>
     </div>
     <div class="steps">
       <div class="step reveal">
-        <div class="step-circle"><div class="step-num">I</div><div class="step-roman">Identification</div></div>
-        <h3>Nous identifions les héritages non transmis</h3>
-        <p>Notre solution propriétaire analyse les bases bancaires et notariales pour détecter les actifs financiers qui n'ont pas été transmis aux héritiers lors d'une succession. 7 % des Français décédés sont concernés.</p>
+        <div class="step-num">1</div>
+        <h3 data-i18n="step1_title">Identification</h3>
+        <p data-i18n="step1_text">Nous analysons les bases bancaires et notariales pour détecter les actifs non transmis. Nous consultons les registres d'État Civil (actes de décès) grâce à notre accréditation du Ministère de la Culture.</p>
       </div>
-      <div class="step reveal" style="transition-delay:0.15s">
-        <div class="step-circle"><div class="step-num">II</div><div class="step-roman">Recherche</div></div>
-        <h3>Notre équipe s'engage à votre service</h3>
-        <p>Nos experts en droit des successions et en généalogie travaillent en étroite collaboration avec les notaires, les mairies et les pompes funèbres pour retrouver les héritiers légitimes et constituer votre dossier.</p>
+      <div class="step reveal" style="transition-delay:0.1s">
+        <div class="step-num">2</div>
+        <h3 data-i18n="step2_title">Recherche</h3>
+        <p data-i18n="step2_text">À partir des actes de décès, nous reconstituons l'arbre familial et identifions les héritiers légitimes. Nos généalogistes collaborent avec notaires, mairies et pompes funèbres.</p>
       </div>
-      <div class="step reveal" style="transition-delay:0.3s">
-        <div class="step-circle"><div class="step-num">III</div><div class="step-roman">Restitution</div></div>
-        <h3>Nous vous restituons les actifs vous étant dus</h3>
-        <p>Si des actifs sont retrouvés, nous vous les restituons déduction faite de notre commission, supervisée par un notaire. Si notre recherche n'aboutit pas, votre dossier est classé sans aucun frais pour vous.</p>
+      <div class="step reveal" style="transition-delay:0.2s">
+        <div class="step-num">3</div>
+        <h3 data-i18n="step3_title">Restitution</h3>
+        <p data-i18n="step3_text">Après signature d'un contrat de révélation, nous gérons l'ensemble des démarches jusqu'au versement des fonds — supervisé par un notaire. Vous ne payez qu'en cas de succès.</p>
       </div>
     </div>
   </div>
@@ -398,128 +446,194 @@
   <div class="container">
     <div class="about-grid">
       <div class="reveal">
-        <span class="label">Notre histoire</span>
-        <h2 class="section-title">Un cabinet fondé sur <em>la confiance</em></h2>
-        <div class="about-quote">
-          <p>« Kléro, du grec ancien κλῆρος — "l'héritage". Notre mission est de révéler et sécuriser ce qui vous revient de droit, avec respect et transparence. »</p>
-          <cite>Jean-Michel Branche, Président-Fondateur</cite>
-        </div>
-        <div class="accreditation-box">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <p><strong>Accréditation officielle :</strong> Kléro est agréée par le Ministère de la Culture pour consulter les registres d'État Civil. SIREN 947 791 927 RCS Paris.</p>
-        </div>
+        <span class="label" data-i18n="about_label">Notre fondateur</span>
+        <blockquote class="about-quote" data-i18n="about_quote">« Mon expérience de plus de 40 ans au barreau de Paris m'a appris que de nombreuses familles ignorent l'existence d'actifs qui leur reviennent de droit. »</blockquote>
+        <p class="about-attr">— Jean-Michel Branche, <span data-i18n="about_attr">Président-Fondateur, Avocat au Barreau de Paris depuis 1983</span></p>
       </div>
-      <div class="about-body reveal" style="transition-delay:0.15s">
-        <p>Fondée en 2022 par <strong>Jean-Michel Branche</strong>, avocat au barreau de Paris depuis 1983, Kléro Généalogie est née d'un constat simple : chaque année, des milliers de familles françaises ignorent qu'elles ont droit à un héritage.</p>
-        <p>Comptes bancaires non clôturés, livrets d'épargne oubliés, assurances-vie méconnues… Ces actifs dorment parfois pendant des décennies, alors que des héritiers légitimes attendent sans le savoir.</p>
-        <p>Notre cabinet unit l'expertise juridique en droit des successions à des techniques modernes de généalogie pour restituer aux familles ce qui leur appartient. Chaque dossier est traité avec une <strong>attention humaine et méticuleuse</strong>, car nous savons que derrière chaque succession se cache une histoire de famille.</p>
-        <p>Nous travaillons exclusivement <strong>au succès</strong> : aucun frais initial, aucune commission si nous ne récupérons rien. Votre confiance est notre première responsabilité.</p>
+      <div class="about-right reveal" style="transition-delay:0.12s">
+        <span class="label" data-i18n="about_label2">Kléro Généalogie</span>
+        <p data-i18n="about_p1">Fondée en 2022 à Paris, Kléro Généalogie est une société de généalogie successorale dont le nom s'inspire du terme grec ancien <em>κλῆρος</em> (klēros) — signifiant « héritage ». Notre mission : révéler et sécuriser les héritages oubliés des familles françaises.</p>
+        <p data-i18n="about_p2">Nous intervenons conformément à l'article 36 de la loi du 23 juin 2006 portant réforme des successions. Chaque dossier est traité avec la même rigueur, qu'il s'agisse de quelques centaines ou de plusieurs milliers d'euros.</p>
+        <div class="accred-box">
+          <div class="accred-icon">🏛</div>
+          <div>
+            <strong data-i18n="accred_title">Accréditation officielle</strong>
+            <span data-i18n="accred_text">Kléro Généalogie est officiellement accréditée par le Ministère de la Culture pour consulter les registres d'État Civil français.</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WHY US -->
-<section class="why">
+<!-- WHY -->
+<section class="why" id="why">
   <div class="container">
     <div class="why-header reveal">
-      <span class="label">Pourquoi Kléro</span>
-      <h2 class="section-title">Des engagements concrets</h2>
-      <p class="section-intro">Nous nous imposons des standards élevés pour garantir votre sécurité, votre confidentialité et votre tranquillité d'esprit.</p>
+      <span class="label" data-i18n="why_label">Nos engagements</span>
+      <h2 class="section-title" data-i18n="why_title">Pourquoi choisir <em>Kléro</em> ?</h2>
     </div>
     <div class="why-grid">
       <div class="why-card reveal">
         <div class="why-icon">⚖️</div>
-        <h3>Expertise juridique de haut niveau</h3>
-        <p>Fondé par un avocat du barreau de Paris, chaque dossier bénéficie d'un suivi en droit des successions. Un notaire supervise tous les versements d'actifs.</p>
+        <h3 data-i18n="why1_title">Expertise juridique</h3>
+        <p data-i18n="why1_text">Fondé par un avocat au barreau de Paris depuis 1983, Kléro maîtrise les subtilités du droit successoral français pour protéger vos intérêts à chaque étape.</p>
       </div>
       <div class="why-card reveal" style="transition-delay:0.1s">
-        <div class="why-icon">🏛️</div>
-        <h3>Accréditation ministérielle</h3>
-        <p>Nous sommes officiellement agréés par le Ministère de la Culture pour accéder aux registres d'État Civil, garantissant la légalité et la fiabilité de nos recherches.</p>
+        <div class="why-icon">📜</div>
+        <h3 data-i18n="why2_title">Accréditation officielle</h3>
+        <p data-i18n="why2_text">Seuls les cabinets accrédités par le Ministère de la Culture peuvent consulter les registres d'État Civil. Cette habilitation garantit la légitimité de nos recherches.</p>
       </div>
       <div class="why-card reveal" style="transition-delay:0.2s">
-        <div class="why-icon">🔒</div>
-        <h3>Zéro risque financier pour vous</h3>
-        <p>Nos honoraires sont prélevés uniquement sur les actifs effectivement récupérés. Si notre recherche ne donne rien, votre dossier est classé sans aucun frais.</p>
+        <div class="why-icon">💰</div>
+        <h3 data-i18n="why3_title">Zéro risque financier</h3>
+        <p data-i18n="why3_text">Nos honoraires et ceux du notaire sont prélevés uniquement sur les fonds récupérés. Si nous ne trouvons rien, vous ne payez rien. Aucune avance demandée.</p>
       </div>
       <div class="why-card reveal" style="transition-delay:0.3s">
         <div class="why-icon">🤝</div>
-        <h3>Éthique et respect en toutes circonstances</h3>
-        <p>Nous ne pratiquons aucune forme de harcèlement ni de contrainte. Nous vérifions l'identité de chaque interlocuteur et respectons scrupuleusement le Code de la consommation.</p>
+        <h3 data-i18n="why4_title">Éthique & déontologie</h3>
+        <p data-i18n="why4_text">Nous nous interdisons tout harcèlement, toute pression et tout contact le dimanche ou les jours fériés. Nous vérifions systématiquement l'identité de nos interlocuteurs.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ASSETS TYPES -->
-<section class="assets">
+<!-- ASSETS -->
+<section class="assets" id="assets">
   <div class="container">
     <div class="assets-header reveal">
-      <span class="label">Les actifs concernés</span>
-      <h2 class="section-title">Quels héritages pouvons-nous retrouver ?</h2>
-      <p class="section-intro">Ces actifs restent souvent invisibles même après qu'une succession a été officiellement réglée, car un notaire ne peut intégrer que ce dont la famille a connaissance.</p>
+      <span class="label" data-i18n="assets_label">Types d'actifs</span>
+      <h2 class="section-title" data-i18n="assets_title">Quels actifs <em>pouvons-nous retrouver</em> ?</h2>
+      <p class="section-intro" data-i18n="assets_intro">Les montants varient de quelques dizaines à plusieurs milliers d'euros. La moyenne retrouvée est d'environ 500 €.</p>
     </div>
     <div class="assets-grid">
       <div class="asset-card reveal">
         <div class="asset-icon">🏦</div>
-        <h4>Comptes bancaires oubliés</h4>
-        <p>Comptes ouverts avant un mariage ou un déménagement, dont le conjoint survivant et les enfants n'ont pas connaissance. Souvent issus d'une ancienne situation personnelle ou professionnelle.</p>
+        <h3 data-i18n="asset1_title">Comptes bancaires</h3>
+        <p data-i18n="asset1_text">Comptes courants, livrets d'épargne (Livret A, PEL, Codevi, CEL) laissés ouverts après le décès et non réclamés par les héritiers.</p>
+        <div class="asset-avg" data-i18n="asset1_avg">Moy. retrouvée : ~300 €</div>
       </div>
       <div class="asset-card reveal" style="transition-delay:0.1s">
-        <div class="asset-icon">💰</div>
-        <h4>Plans et livrets d'épargne</h4>
-        <p>Livret A, PEL, Livret Jeune, Codevi… mais aussi des plans d'épargne entreprise (PEE) sur lesquels des intéressements ont été versés tout au long de la vie professionnelle du défunt.</p>
+        <div class="asset-icon">📈</div>
+        <h3 data-i18n="asset2_title">Plans d'épargne</h3>
+        <p data-i18n="asset2_text">Plans d'épargne entreprise (PEE), plans d'épargne retraite (PERCO) et autres produits financiers oubliés dans les successions.</p>
+        <div class="asset-avg" data-i18n="asset2_avg">Moy. retrouvée : ~700 €</div>
       </div>
       <div class="asset-card reveal" style="transition-delay:0.2s">
-        <div class="asset-icon">📋</div>
-        <h4>Assurances-vie</h4>
-        <p>Contrats souscrits par le défunt, ou ouverts par un parent ou grand-parent en son nom, parfois très anciens et méconnus des héritiers directs au moment de la succession.</p>
+        <div class="asset-icon">🛡</div>
+        <h3 data-i18n="asset3_title">Assurances-vie</h3>
+        <p data-i18n="asset3_text">Contrats d'assurance-vie dont les bénéficiaires n'ont pas été informés. Ces dossiers peuvent représenter les montants les plus importants.</p>
+        <div class="asset-avg" data-i18n="asset3_avg">Jusqu'à 10 000 € et plus</div>
       </div>
     </div>
-    <p class="reveal" style="text-align:center; margin-top:2.5rem; font-size:0.92rem; color:var(--muted);">Le montant moyen retrouvé par succession est d'environ <strong style="color:var(--ink)">500 €</strong>, mais peut dépasser <strong style="color:var(--ink)">10 000 €</strong> dans certains dossiers.</p>
   </div>
 </section>
 
 <!-- ASSOCIATIONS -->
 <section class="associations" id="associations">
   <div class="container">
-    <div class="associations-header reveal">
-      <span class="label">Engagement sociétal</span>
-      <h2 class="section-title">Nos associations <em>partenaires</em></h2>
-      <p class="section-intro">Depuis sa création, Kléro Généalogie soutient des associations d'intérêt général qui partagent ses valeurs de transmission et de responsabilité.</p>
+    <div class="reveal">
+      <span class="label" data-i18n="assoc_label">Partenaires & Engagements</span>
+      <h2 class="section-title" data-i18n="assoc_title">Nos <em>associations partenaires</em></h2>
     </div>
-    <div class="assoc-intro-box reveal">
-      <p>Lors de successions impliquant des montants modestes, nous offrons aux héritiers la possibilité de <strong>regrouper leurs fonds pour financer des projets d'utilité publique</strong> : lutte contre le réchauffement climatique, préservation du patrimoine historique, et accès à la généalogie pour tous.</p>
+    <div class="assoc-intro-box reveal" style="transition-delay:0.1s">
+      <div class="ai-icon">🌿</div>
+      <p data-i18n="assoc_intro">Lorsqu'un montant récupéré est jugé trop modeste pour un virement individuel, Kléro propose à ses clients de reverser ces fonds à l'une de nos associations partenaires. Cette démarche transforme chaque petite succession en un geste concret pour la société.</p>
     </div>
     <div class="assoc-grid">
       <div class="assoc-card reveal">
-        <span class="assoc-tag">🌱 Écologie</span>
+        <div class="assoc-emoji">🌱</div>
         <h3>Plantons pour l'avenir</h3>
-        <p>Partenaire depuis 2024, cette association engagée dans des initiatives de reboisement et de préservation de la biodiversité locale en France. Notre collaboration reflète un engagement commun en faveur de l'environnement et des générations futures.</p>
-        <div class="assoc-metric">
-          <div class="assoc-metric-num">11 385</div>
-          <div class="assoc-metric-lbl">arbres plantés en France<br>grâce à notre partenariat</div>
-        </div>
+        <div class="assoc-since" data-i18n="assoc_since">Partenaire depuis 2024</div>
+        <p data-i18n="assoc1_text">Association engagée dans la reforestation et la lutte contre le changement climatique. Chaque dossier clôturé contribue à planter de nouveaux arbres en France.</p>
+        <div class="assoc-stat">🌳 11 385 <span data-i18n="assoc1_stat">arbres plantés grâce à Kléro</span></div>
       </div>
-      <div class="assoc-card reveal" style="transition-delay:0.12s">
-        <span class="assoc-tag">🏰 Patrimoine</span>
+      <div class="assoc-card reveal" style="transition-delay:0.1s">
+        <div class="assoc-emoji">🏰</div>
         <h3>Fondation du Patrimoine</h3>
-        <p>En 2025, nous avons effectué un don à la Fondation du Patrimoine, l'association la plus reconnue en France pour la sauvegarde et la valorisation du patrimoine historique, architectural et naturel français.</p>
-        <div class="assoc-metric">
-          <div class="assoc-metric-num">7 270 €</div>
-          <div class="assoc-metric-lbl">versés en 2025<br>pour préserver le patrimoine français</div>
-        </div>
+        <div class="assoc-since" data-i18n="assoc_since2">Partenaire depuis 2025</div>
+        <p data-i18n="assoc2_text">La Fondation du Patrimoine œuvre pour la sauvegarde du patrimoine architectural et naturel français. Notre partenariat contribue à la restauration de sites emblématiques.</p>
+        <div class="assoc-stat">💶 7 270 € <span data-i18n="assoc2_stat">donnés depuis 2025</span></div>
       </div>
-      <div class="assoc-card reveal" style="transition-delay:0.24s">
-        <span class="assoc-tag">📜 Généalogie</span>
+      <div class="assoc-card reveal" style="transition-delay:0.2s">
+        <div class="assoc-emoji">📜</div>
         <h3>Fédération Française de Généalogie</h3>
-        <p>Nous soutenons la démocratisation de la généalogie en finançant la Fédération Française de Généalogie (FFG) pour renforcer sa présence numérique, organiser des événements nationaux et célébrer le patrimoine familial de chacun.</p>
-        <div class="assoc-metric">
-          <div class="assoc-metric-num">FFG</div>
-          <div class="assoc-metric-lbl">partenaire officiel pour<br>l'accès à la généalogie pour tous</div>
-        </div>
+        <div class="assoc-since" data-i18n="assoc_ffg">Membre officiel</div>
+        <p data-i18n="assoc3_text">La FFG est l'organisme de référence en France pour la pratique de la généalogie. Notre adhésion garantit le respect des standards éthiques et professionnels du métier.</p>
+        <div class="assoc-stat">✅ <span data-i18n="assoc3_stat">Partenaire officiel FFG</span></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="avis">
+  <div class="container">
+    <div class="reviews-header reveal">
+      <span class="label" data-i18n="reviews_label">Avis clients</span>
+      <h2 class="section-title" data-i18n="reviews_title">Ce que disent <em>nos clients</em></h2>
+      <p class="section-intro" data-i18n="reviews_intro">Témoignages vérifiés par Google parmi nos 398 avis.</p>
+    </div>
+
+    <div class="reviews-score reveal">
+      <div class="reviews-stars">
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div class="reviews-num">4,9</div>
+      <div class="reviews-count" data-i18n="reviews_count">398 avis Google vérifiés</div>
+    </div>
+
+    <!-- REAL REVIEWS from klero.fr / Google -->
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="review-text" data-i18n="review1_text">« Cabinet sérieux, très réactif. Le cabinet a retrouvé, en moins d'un mois, des fonds dont je ne connaissais pas l'existence et nous a reversé notre part en 24 heures en respectant les engagements pris sur leurs frais. »</p>
+        <div class="review-author">M. Breton</div>
+        <div class="review-date" data-i18n="review_google">Avis Google vérifié</div>
+      </div>
+
+      <div class="review-card reveal" style="transition-delay:0.1s">
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="review-text" data-i18n="review2_text">« Maître Branche est très professionnel et a su lever les doutes que j'avais. Merci. »</p>
+        <div class="review-author">C. Lemaire</div>
+        <div class="review-date" data-i18n="review_google">Avis Google vérifié</div>
+      </div>
+
+      <div class="review-card reveal" style="transition-delay:0.2s">
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="review-text" data-i18n="review3_text">« Simplement parfait. Contactée par leur service via les pompes funèbres suite au décès de ma maman. J'ai cru à une blague mais non. Très bonne équipe, qui explique bien les choses. Le cabinet est très sérieux, j'ai eu des nouvelles dans les délais qu'ils m'avaient donnés. »</p>
+        <div class="review-author">S. Moreau</div>
+        <div class="review-date" data-i18n="review_google">Avis Google vérifié</div>
+      </div>
+    </div>
+
+    <div class="reviews-cta reveal">
+      <a href="https://share.google/8LhsUlfShdvGHekNE" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span data-i18n="reviews_cta">Lire les 398 avis sur Google</span>
+      </a>
     </div>
   </div>
 </section>
@@ -528,26 +642,25 @@
 <section class="team" id="team">
   <div class="container">
     <div class="team-header reveal">
-      <span class="label">Notre équipe</span>
-      <h2 class="section-title">Des experts à votre écoute</h2>
-      <p class="section-intro">Une équipe pluridisciplinaire alliant droit des successions, généalogie et accompagnement humain, guidée par deux fondateurs expérimentés.</p>
+      <span class="label" data-i18n="team_label">L'équipe</span>
+      <h2 class="section-title" data-i18n="team_title">Des experts <em>à votre service</em></h2>
     </div>
     <div class="team-founders">
       <div class="founder-card reveal">
         <div class="founder-avatar">JB</div>
         <h4>Jean-Michel Branche</h4>
-        <div class="role">Président-Fondateur</div>
-        <p>Avocat au barreau de Paris depuis 1983. Il a accompagné des centaines de clients dans des affaires successorales complexes avant de fonder Kléro en 2022.</p>
+        <div class="role" data-i18n="jb_role">Président-Fondateur</div>
+        <p data-i18n="jb_bio">Avocat au barreau de Paris depuis 1983. Il a accompagné des centaines de clients dans des affaires successorales complexes avant de fonder Kléro en 2022.</p>
       </div>
       <div class="founder-card reveal" style="transition-delay:0.12s">
         <div class="founder-avatar">LF</div>
         <h4>Louis Fleury</h4>
-        <div class="role">Associé — Directeur Général</div>
-        <p>En charge des opérations et du développement de Kléro, Louis orchestre les partenariats avec les notaires, mairies et institutions partenaires à travers la France.</p>
+        <div class="role" data-i18n="lf_role">Associé — Directeur Général</div>
+        <p data-i18n="lf_bio">En charge des opérations et du développement de Kléro, Louis orchestre les partenariats avec les notaires, mairies et institutions partenaires à travers la France.</p>
       </div>
     </div>
     <div class="team-note reveal">
-      Notre équipe compte également <strong>plus de 12 collaborateurs spécialisés</strong> — généalogistes, juristes et chargés de dossiers — dont une représentante dédiée aux dossiers italiens (Milano / Bergamo), reflétant notre développement international.
+      <span data-i18n="team_note">Notre équipe compte également <strong>plus de 12 collaborateurs spécialisés</strong> — généalogistes, juristes et chargés de dossiers — dont une représentante dédiée aux dossiers italiens (Milano / Bergamo), reflétant notre développement international.</span>
     </div>
   </div>
 </section>
@@ -556,45 +669,51 @@
 <section class="faq" id="faq">
   <div class="container">
     <div class="faq-header reveal">
-      <span class="label">Questions fréquentes</span>
-      <h2 class="section-title">Vous avez des questions ?<br>Nous avons les réponses.</h2>
+      <span class="label" data-i18n="faq_label">Questions fréquentes</span>
+      <h2 class="section-title" data-i18n="faq_title">Vous avez des <em>questions</em> ?</h2>
     </div>
     <div class="faq-list reveal">
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Comment être certain de la légitimité de Kléro ?
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="faq1_q">Comment être certain de la légitimité de Kléro ?</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
-        <div class="faq-a">Kléro Généalogie a été fondée en 2022 par un ancien avocat du barreau de Paris. Nous sommes enregistrés sous le numéro SIREN 947 791 927 RCS Paris. Nous sommes officiellement accrédités par le Ministère de la Culture pour consulter les registres d'État Civil. Chaque dossier est supervisé par un notaire.</div>
+        <div class="faq-a" data-i18n="faq1_a">Kléro Généalogie a été fondée en 2022 par un ancien avocat du barreau de Paris. Nous sommes enregistrés sous le numéro SIREN 947 791 927 RCS Paris. Nous sommes officiellement accrédités par le Ministère de la Culture pour consulter les registres d'État Civil. Chaque dossier est supervisé par un notaire.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Comment avez-vous retrouvé mes coordonnées ?
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="faq2_q">Comment avez-vous retrouvé mes coordonnées ?</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
-        <div class="faq-a">Nous accédons aux actes de décès via les registres d'État Civil, qui contiennent des informations sur les proches et le notaire du défunt. À partir de ces données, nous reconstituons l'arbre familial et prenons contact via les mairies, notaires, pompes funèbres ou des bases de données publiques telles que les pages jaunes.</div>
+        <div class="faq-a" data-i18n="faq2_a">Nous accédons aux actes de décès via les registres d'État Civil, qui contiennent des informations sur les proches et le notaire du défunt. À partir de ces données, nous reconstituons l'arbre familial et prenons contact via les mairies, notaires, pompes funèbres ou des bases de données publiques.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Quel type d'héritage Kléro peut-il retrouver ?
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="faq3_q">Quel type d'héritage Kléro peut-il retrouver ?</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
-        <div class="faq-a">Il peut s'agir de comptes bancaires non clôturés, de livrets d'épargne (Livret A, PEL, Codevi), de plans d'épargne entreprise, ou d'assurances-vie. Le montant moyen retrouvé est d'environ 500 €, mais peut dépasser 10 000 € pour certains dossiers impliquant des contrats d'assurance ou des plans d'épargne importants.</div>
+        <div class="faq-a" data-i18n="faq3_a">Il peut s'agir de comptes bancaires non clôturés, de livrets d'épargne (Livret A, PEL, Codevi), de plans d'épargne entreprise, ou d'assurances-vie. Le montant moyen retrouvé est d'environ 500 €, mais peut dépasser 10 000 €.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Combien cela coûte-t-il ?
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="faq4_q">Combien cela coûte-t-il ?</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
-        <div class="faq-a">Nous ne demandons aucun frais initial. Nos honoraires, ainsi que ceux du notaire, sont prélevés directement sur les fonds récupérés et clairement détaillés dans votre contrat. Si nous ne trouvons rien, votre dossier est classé sans aucun frais pour vous.</div>
+        <div class="faq-a" data-i18n="faq4_a">Nos honoraires et ceux du notaire sont prélevés uniquement sur les fonds effectivement récupérés. Aucune avance ne vous sera demandée. Si nous ne retrouvons rien, vous ne payez rien. Le pourcentage exact est stipulé dans votre contrat.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Quelle est la procédure pour débloquer les fonds ?
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="faq5_q">Pourquoi signer un contrat de révélation ?</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
-        <div class="faq-a">Après un premier échange téléphonique, nous vous envoyons deux documents par signature électronique : un contrat de révélation (détaillant notre rémunération) et un mandat de recherche (nous autorisant à agir en votre nom). Nos équipes effectuent ensuite toutes les démarches auprès des banques et organismes concernés jusqu'au versement effectif des fonds.</div>
+        <div class="faq-a" data-i18n="faq5_a">Conformément à l'article 36 de la loi du 23 juin 2006, la signature d'un contrat de révélation est requise avant que nous puissions vous communiquer les détails de la succession et mandater nos démarches en votre nom. Ce contrat vous est envoyé pour signature électronique.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Puis-je orienter les fonds vers une association partenaire ?
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-i18n="faq6_q">Dans quel délai serai-je remboursé ?</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
-        <div class="faq-a">Oui. Pour les successions impliquant des montants modestes, nous offrons la possibilité de regrouper vos fonds pour financer des projets d'intérêt général : reboisement avec "Plantons pour l'avenir", préservation du patrimoine avec la Fondation du Patrimoine, ou soutien à la Fédération Française de Généalogie.</div>
+        <div class="faq-a" data-i18n="faq6_a">Les délais varient selon la complexité du dossier et les institutions impliquées. En général, les fonds sont versés entre quelques semaines et quelques mois après la signature du contrat. Certains clients ont été remboursés en moins d'un mois.</div>
       </div>
     </div>
   </div>
@@ -604,47 +723,56 @@
 <section class="contact" id="contact">
   <div class="container">
     <div class="contact-grid">
-      <div class="contact-left reveal">
-        <span class="label">Nous contacter</span>
-        <h2 class="section-title">Parlons de votre <em>dossier</em></h2>
-        <p>Vous avez été contacté par Kléro, vous souhaitez en savoir plus ou vous avez une question ? Notre équipe vous répond dans les meilleurs délais, avec bienveillance et sans aucun engagement de votre part.</p>
-        <div class="contact-details">
-          <div class="contact-detail">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.07 6.07l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            <span><strong>Téléphone</strong>01 73 71 13 63</span>
-          </div>
-          <div class="contact-detail">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            <span><strong>E-mail</strong>accueil@klero.fr</span>
-          </div>
-          <div class="contact-detail">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <span><strong>Adresse</strong>295 Rue Saint-Jacques, 75005 Paris<br>Tour Montparnasse (sur rendez-vous)</span>
-          </div>
+      <div class="contact-info reveal">
+        <span class="label" data-i18n="contact_label">Nous contacter</span>
+        <h2 data-i18n="contact_title">Vous avez été contacté <em style="font-style:italic;color:var(--gold)">par Kléro</em> ?</h2>
+        <p data-i18n="contact_sub">Remplissez ce formulaire et notre équipe vous rappellera dans les meilleurs délais pour répondre à toutes vos questions.</p>
+        <div class="c-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.07 6.07l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <a href="tel:0173711363">01 73 71 13 63</a>
+        </div>
+        <div class="c-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:accueil@klero.fr">accueil@klero.fr</a>
+        </div>
+        <div class="c-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>295 Rue Saint-Jacques, 75005 Paris</span>
         </div>
       </div>
       <div class="reveal" style="transition-delay:0.15s">
-        <div class="cform">
-          <div class="cform-row">
-            <div class="field"><label for="prenom">Prénom</label><input type="text" id="prenom" placeholder="Marie" autocomplete="given-name"/></div>
-            <div class="field"><label for="nom">Nom</label><input type="text" id="nom" placeholder="Dupont" autocomplete="family-name"/></div>
-          </div>
-          <div class="field"><label for="email">Adresse e-mail</label><input type="email" id="email" placeholder="marie.dupont@exemple.fr" autocomplete="email"/></div>
-          <div class="field"><label for="tel">Téléphone</label><input type="tel" id="tel" placeholder="+33 6 00 00 00 00" autocomplete="tel"/></div>
+        <div class="cform-row">
           <div class="field">
-            <label for="sujet">Objet de votre demande</label>
-            <select id="sujet">
-              <option value="" disabled selected>Sélectionnez…</option>
-              <option>J'ai été contacté par Kléro</option>
-              <option>Je souhaite en savoir plus sur vos services</option>
-              <option>Je veux signaler un héritage potentiel</option>
-              <option>Autre question</option>
-            </select>
+            <label data-i18n="form_first">Prénom</label>
+            <input type="text" placeholder="Jean"/>
           </div>
-          <div class="field"><label for="message">Votre message (optionnel)</label><textarea id="message" placeholder="Décrivez brièvement votre situation…"></textarea></div>
-          <button class="cform-submit">Envoyer ma demande →</button>
-          <p class="cform-note">🔒 Vos informations sont strictement confidentielles et ne seront jamais cédées à des tiers.</p>
+          <div class="field">
+            <label data-i18n="form_last">Nom</label>
+            <input type="text" placeholder="Dupont"/>
+          </div>
         </div>
+        <div class="field">
+          <label data-i18n="form_email">Email</label>
+          <input type="email" placeholder="jean.dupont@email.fr"/>
+        </div>
+        <div class="field">
+          <label data-i18n="form_phone">Téléphone</label>
+          <input type="tel" placeholder="06 00 00 00 00"/>
+        </div>
+        <div class="field">
+          <label data-i18n="form_subject">Sujet</label>
+          <select>
+            <option data-i18n="form_s1">J'ai été contacté par Kléro</option>
+            <option data-i18n="form_s2">Question sur mon dossier</option>
+            <option data-i18n="form_s3">Demande d'information générale</option>
+            <option data-i18n="form_s4">Autre</option>
+          </select>
+        </div>
+        <div class="field">
+          <label data-i18n="form_msg">Message</label>
+          <textarea placeholder="Décrivez votre situation..."></textarea>
+        </div>
+        <button type="button" class="btn-submit" data-i18n="form_send">Envoyer ma demande</button>
       </div>
     </div>
   </div>
@@ -655,28 +783,28 @@
   <div class="footer-grid">
     <div>
       <div class="footer-logo">Kl<span>é</span>ro</div>
-      <p class="footer-tagline">Cabinet de généalogie successorale, fondé à Paris en 2022. Nous révélons et sécurisons les héritages oubliés.</p>
+      <p class="footer-tagline" data-i18n="footer_tag">Cabinet de généalogie successorale, fondé à Paris en 2022. Nous révélons et sécurisons les héritages oubliés.</p>
     </div>
     <div class="footer-col">
-      <h5>Cabinet</h5>
+      <h5 data-i18n="footer_col1">Cabinet</h5>
       <ul>
-        <li><a href="#about">Qui sommes-nous</a></li>
-        <li><a href="#team">Notre équipe</a></li>
-        <li><a href="#associations">Nos associations</a></li>
-        <li><a href="#how">Notre méthode</a></li>
+        <li><a href="#about" data-i18n="nav_about">Qui sommes-nous</a></li>
+        <li><a href="#team" data-i18n="team_label">Notre équipe</a></li>
+        <li><a href="#associations" data-i18n="nav_assoc">Nos associations</a></li>
+        <li><a href="#how" data-i18n="nav_how">Notre méthode</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h5>Informations</h5>
+      <h5 data-i18n="footer_col2">Informations</h5>
       <ul>
-        <li><a href="#contact">J'ai été contacté</a></li>
-        <li><a href="#faq">Questions fréquentes</a></li>
-        <li><a href="#">Mentions légales</a></li>
-        <li><a href="#">Confidentialité</a></li>
+        <li><a href="#contact" data-i18n="nav_cta">J'ai été contacté</a></li>
+        <li><a href="#faq" data-i18n="faq_label">Questions fréquentes</a></li>
+        <li><a href="#" data-i18n="footer_legal">Mentions légales</a></li>
+        <li><a href="#" data-i18n="footer_privacy">Confidentialité</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h5>Contact</h5>
+      <h5 data-i18n="footer_col3">Contact</h5>
       <ul>
         <li><a href="tel:0173711363">01 73 71 13 63</a></li>
         <li><a href="mailto:accueil@klero.fr">accueil@klero.fr</a></li>
@@ -687,33 +815,430 @@
   </div>
   <div class="footer-bottom">
     <span>© 2026 Kléro Généalogie — SIREN 947 791 927 RCS Paris</span>
-    <span><a href="#">Mentions légales</a> · <a href="#">Politique de confidentialité</a></span>
+    <span><a href="#" data-i18n="footer_legal">Mentions légales</a> · <a href="#" data-i18n="footer_privacy">Politique de confidentialité</a></span>
   </div>
 </footer>
 
 <script>
-  function toggleMenu() {
-    const o = document.getElementById('mobileOverlay');
-    const b = document.getElementById('hamburger');
-    o.classList.toggle('open'); b.classList.toggle('open');
-    document.body.style.overflow = o.classList.contains('open') ? 'hidden' : '';
+// ===================== TRANSLATIONS =====================
+const translations = {
+  fr: {
+    nav_how: "Comment ça marche",
+    nav_about: "Qui sommes-nous",
+    nav_assoc: "Nos associations",
+    nav_reviews: "Avis clients",
+    nav_contact: "Nous contacter",
+    nav_cta: "J'ai été contacté",
+    hero_badge: "🏛 Cabinet de généalogie successorale accrédité",
+    hero_title1: "Un héritage oublié",
+    hero_title2: "vous attend peut-être.",
+    hero_sub: "7 % des Français décédés laissent des actifs non transmis à leurs héritiers. Notre cabinet les identifie et vous accompagne jusqu'au remboursement — sans aucun frais initial.",
+    hero_cta1: "Découvrir notre méthode",
+    hero_cta2: "J'ai été contacté",
+    stat1: "des Français décédés concernés",
+    stat2: "de frais si rien n'est trouvé",
+    stat3: "Fondé à Paris par un avocat",
+    strip1: "Accrédité Ministère de la Culture",
+    strip2: "Zéro frais si rien n'est trouvé",
+    strip3: "Supervisé par un notaire",
+    strip4: "Données sécurisées & confidentielles",
+    how_label: "Notre méthode",
+    how_title: "Comment ça marche ?",
+    step1_title: "Identification",
+    step1_text: "Nous analysons les bases bancaires et notariales pour détecter les actifs non transmis. Nous consultons les registres d'État Civil (actes de décès) grâce à notre accréditation du Ministère de la Culture.",
+    step2_title: "Recherche",
+    step2_text: "À partir des actes de décès, nous reconstituons l'arbre familial et identifions les héritiers légitimes. Nos généalogistes collaborent avec notaires, mairies et pompes funèbres.",
+    step3_title: "Restitution",
+    step3_text: "Après signature d'un contrat de révélation, nous gérons l'ensemble des démarches jusqu'au versement des fonds — supervisé par un notaire. Vous ne payez qu'en cas de succès.",
+    about_label: "Notre fondateur",
+    about_quote: "« Mon expérience de plus de 40 ans au barreau de Paris m'a appris que de nombreuses familles ignorent l'existence d'actifs qui leur reviennent de droit. »",
+    about_attr: "Président-Fondateur, Avocat au Barreau de Paris depuis 1983",
+    about_label2: "Kléro Généalogie",
+    about_p1: "Fondée en 2022 à Paris, Kléro Généalogie est une société de généalogie successorale dont le nom s'inspire du terme grec ancien κλῆρος (klēros) — signifiant « héritage ». Notre mission : révéler et sécuriser les héritages oubliés des familles françaises.",
+    about_p2: "Nous intervenons conformément à l'article 36 de la loi du 23 juin 2006 portant réforme des successions. Chaque dossier est traité avec la même rigueur, qu'il s'agisse de quelques centaines ou de plusieurs milliers d'euros.",
+    accred_title: "Accréditation officielle",
+    accred_text: "Kléro Généalogie est officiellement accréditée par le Ministère de la Culture pour consulter les registres d'État Civil français.",
+    why_label: "Nos engagements",
+    why_title: "Pourquoi choisir Kléro ?",
+    why1_title: "Expertise juridique",
+    why1_text: "Fondé par un avocat au barreau de Paris depuis 1983, Kléro maîtrise les subtilités du droit successoral français pour protéger vos intérêts à chaque étape.",
+    why2_title: "Accréditation officielle",
+    why2_text: "Seuls les cabinets accrédités par le Ministère de la Culture peuvent consulter les registres d'État Civil. Cette habilitation garantit la légitimité de nos recherches.",
+    why3_title: "Zéro risque financier",
+    why3_text: "Nos honoraires et ceux du notaire sont prélevés uniquement sur les fonds récupérés. Si nous ne trouvons rien, vous ne payez rien. Aucune avance demandée.",
+    why4_title: "Éthique & déontologie",
+    why4_text: "Nous nous interdisons tout harcèlement, toute pression et tout contact le dimanche ou les jours fériés. Nous vérifions systématiquement l'identité de nos interlocuteurs.",
+    assets_label: "Types d'actifs",
+    assets_title: "Quels actifs pouvons-nous retrouver ?",
+    assets_intro: "Les montants varient de quelques dizaines à plusieurs milliers d'euros. La moyenne retrouvée est d'environ 500 €.",
+    asset1_title: "Comptes bancaires",
+    asset1_text: "Comptes courants, livrets d'épargne (Livret A, PEL, Codevi, CEL) laissés ouverts après le décès et non réclamés par les héritiers.",
+    asset1_avg: "Moy. retrouvée : ~300 €",
+    asset2_title: "Plans d'épargne",
+    asset2_text: "Plans d'épargne entreprise (PEE), plans d'épargne retraite (PERCO) et autres produits financiers oubliés dans les successions.",
+    asset2_avg: "Moy. retrouvée : ~700 €",
+    asset3_title: "Assurances-vie",
+    asset3_text: "Contrats d'assurance-vie dont les bénéficiaires n'ont pas été informés. Ces dossiers peuvent représenter les montants les plus importants.",
+    asset3_avg: "Jusqu'à 10 000 € et plus",
+    assoc_label: "Partenaires & Engagements",
+    assoc_title: "Nos associations partenaires",
+    assoc_intro: "Lorsqu'un montant récupéré est jugé trop modeste pour un virement individuel, Kléro propose à ses clients de reverser ces fonds à l'une de nos associations partenaires.",
+    assoc_since: "Partenaire depuis 2024",
+    assoc_since2: "Partenaire depuis 2025",
+    assoc_ffg: "Membre officiel",
+    assoc1_text: "Association engagée dans la reforestation et la lutte contre le changement climatique. Chaque dossier clôturé contribue à planter de nouveaux arbres en France.",
+    assoc1_stat: "arbres plantés grâce à Kléro",
+    assoc2_text: "La Fondation du Patrimoine œuvre pour la sauvegarde du patrimoine architectural et naturel français. Notre partenariat contribue à la restauration de sites emblématiques.",
+    assoc2_stat: "donnés depuis 2025",
+    assoc3_text: "La FFG est l'organisme de référence en France pour la pratique de la généalogie. Notre adhésion garantit le respect des standards éthiques et professionnels du métier.",
+    assoc3_stat: "Partenaire officiel FFG",
+    reviews_label: "Avis clients",
+    reviews_title: "Ce que disent nos clients",
+    reviews_intro: "Témoignages vérifiés par Google parmi nos 398 avis.",
+    reviews_count: "398 avis Google vérifiés",
+    review1_text: "« Cabinet sérieux, très réactif. Le cabinet a retrouvé, en moins d'un mois, des fonds dont je ne connaissais pas l'existence et nous a reversé notre part en 24 heures en respectant les engagements pris sur leurs frais. »",
+    review2_text: "« Maître Branche est très professionnel et a su lever les doutes que j'avais. Merci. »",
+    review3_text: "« Simplement parfait. Contactée par leur service via les pompes funèbres suite au décès de ma maman. J'ai cru à une blague mais non. Très bonne équipe, qui explique bien les choses. Le cabinet est très sérieux, j'ai eu des nouvelles dans les délais qu'ils m'avaient donnés. »",
+    review_google: "Avis Google vérifié",
+    reviews_cta: "Lire les 398 avis sur Google",
+    team_label: "L'équipe",
+    team_title: "Des experts à votre service",
+    jb_role: "Président-Fondateur",
+    jb_bio: "Avocat au barreau de Paris depuis 1983. Il a accompagné des centaines de clients dans des affaires successorales complexes avant de fonder Kléro en 2022.",
+    lf_role: "Associé — Directeur Général",
+    lf_bio: "En charge des opérations et du développement de Kléro, Louis orchestre les partenariats avec les notaires, mairies et institutions partenaires à travers la France.",
+    team_note: "Notre équipe compte également <strong>plus de 12 collaborateurs spécialisés</strong> — généalogistes, juristes et chargés de dossiers — dont une représentante dédiée aux dossiers italiens (Milano / Bergamo), reflétant notre développement international.",
+    faq_label: "Questions fréquentes",
+    faq_title: "Vous avez des questions ?",
+    faq1_q: "Comment être certain de la légitimité de Kléro ?",
+    faq1_a: "Kléro Généalogie a été fondée en 2022 par un ancien avocat du barreau de Paris. Nous sommes enregistrés sous le numéro SIREN 947 791 927 RCS Paris. Nous sommes officiellement accrédités par le Ministère de la Culture pour consulter les registres d'État Civil. Chaque dossier est supervisé par un notaire.",
+    faq2_q: "Comment avez-vous retrouvé mes coordonnées ?",
+    faq2_a: "Nous accédons aux actes de décès via les registres d'État Civil, qui contiennent des informations sur les proches et le notaire du défunt. À partir de ces données, nous reconstituons l'arbre familial et prenons contact via les mairies, notaires, pompes funèbres ou des bases de données publiques.",
+    faq3_q: "Quel type d'héritage Kléro peut-il retrouver ?",
+    faq3_a: "Il peut s'agir de comptes bancaires non clôturés, de livrets d'épargne (Livret A, PEL, Codevi), de plans d'épargne entreprise, ou d'assurances-vie. Le montant moyen retrouvé est d'environ 500 €, mais peut dépasser 10 000 €.",
+    faq4_q: "Combien cela coûte-t-il ?",
+    faq4_a: "Nos honoraires et ceux du notaire sont prélevés uniquement sur les fonds effectivement récupérés. Aucune avance ne vous sera demandée. Si nous ne retrouvons rien, vous ne payez rien.",
+    faq5_q: "Pourquoi signer un contrat de révélation ?",
+    faq5_a: "Conformément à l'article 36 de la loi du 23 juin 2006, la signature d'un contrat de révélation est requise avant que nous puissions vous communiquer les détails de la succession et mandater nos démarches en votre nom.",
+    faq6_q: "Dans quel délai serai-je remboursé ?",
+    faq6_a: "Les délais varient selon la complexité du dossier. En général, les fonds sont versés entre quelques semaines et quelques mois après la signature du contrat. Certains clients ont été remboursés en moins d'un mois.",
+    contact_label: "Nous contacter",
+    contact_title: "Vous avez été contacté par Kléro ?",
+    contact_sub: "Remplissez ce formulaire et notre équipe vous rappellera dans les meilleurs délais pour répondre à toutes vos questions.",
+    form_first: "Prénom",
+    form_last: "Nom",
+    form_email: "Email",
+    form_phone: "Téléphone",
+    form_subject: "Sujet",
+    form_s1: "J'ai été contacté par Kléro",
+    form_s2: "Question sur mon dossier",
+    form_s3: "Demande d'information générale",
+    form_s4: "Autre",
+    form_msg: "Message",
+    form_send: "Envoyer ma demande",
+    footer_tag: "Cabinet de généalogie successorale, fondé à Paris en 2022. Nous révélons et sécurisons les héritages oubliés.",
+    footer_col1: "Cabinet",
+    footer_col2: "Informations",
+    footer_col3: "Contact",
+    footer_legal: "Mentions légales",
+    footer_privacy: "Politique de confidentialité",
+  },
+  en: {
+    nav_how: "How it works",
+    nav_about: "About us",
+    nav_assoc: "Our partners",
+    nav_reviews: "Client reviews",
+    nav_contact: "Contact us",
+    nav_cta: "I was contacted",
+    hero_badge: "🏛 Accredited succession genealogy firm",
+    hero_title1: "A forgotten inheritance",
+    hero_title2: "may be waiting for you.",
+    hero_sub: "7% of deceased French people leave assets untransmitted to their heirs. Our firm identifies them and guides you through to reimbursement — with no upfront fees.",
+    hero_cta1: "Discover our method",
+    hero_cta2: "I was contacted",
+    stat1: "of deceased French people affected",
+    stat2: "fees if nothing is found",
+    stat3: "Founded in Paris by a lawyer",
+    strip1: "Accredited by the French Ministry of Culture",
+    strip2: "Zero fees if nothing is found",
+    strip3: "Supervised by a notary",
+    strip4: "Secure & confidential data",
+    how_label: "Our method",
+    how_title: "How does it work?",
+    step1_title: "Identification",
+    step1_text: "We analyse banking and notarial databases to detect untransmitted assets. We consult civil registry records (death certificates) thanks to our Ministry of Culture accreditation.",
+    step2_title: "Research",
+    step2_text: "From death certificates, we reconstruct the family tree and identify legitimate heirs. Our genealogists collaborate with notaries, town halls, and funeral homes.",
+    step3_title: "Restitution",
+    step3_text: "After signing a disclosure contract, we manage all procedures through to the disbursement of funds — supervised by a notary. You only pay upon success.",
+    about_label: "Our founder",
+    about_quote: "\"My 40+ years of experience at the Paris Bar taught me that many families are unaware of assets that are rightfully theirs.\"",
+    about_attr: "President-Founder, Member of the Paris Bar since 1983",
+    about_label2: "Kléro Généalogie",
+    about_p1: "Founded in Paris in 2022, Kléro Généalogie is a succession genealogy firm whose name draws from the ancient Greek κλῆρος (klēros) — meaning \"inheritance\". Our mission: to reveal and secure forgotten inheritances for French families.",
+    about_p2: "We operate in accordance with Article 36 of the French law of 23 June 2006 on succession reform. Every case is handled with the same rigour, whether it involves a few hundred or several thousand euros.",
+    accred_title: "Official accreditation",
+    accred_text: "Kléro Généalogie is officially accredited by the French Ministry of Culture to consult French civil registry records.",
+    why_label: "Our commitments",
+    why_title: "Why choose Kléro?",
+    why1_title: "Legal expertise",
+    why1_text: "Founded by a Paris Bar lawyer with 40+ years of experience, Kléro masters the nuances of French succession law to protect your interests at every step.",
+    why2_title: "Official accreditation",
+    why2_text: "Only firms accredited by the Ministry of Culture may consult civil registry records. This accreditation guarantees the legitimacy of our research.",
+    why3_title: "Zero financial risk",
+    why3_text: "Our fees and the notary's fees are deducted only from recovered funds. If we find nothing, you pay nothing. No upfront payment required.",
+    why4_title: "Ethics & integrity",
+    why4_text: "We prohibit any harassment or pressure, and never contact heirs on Sundays or public holidays. We systematically verify the identity of all parties.",
+    assets_label: "Asset types",
+    assets_title: "What assets can we recover?",
+    assets_intro: "Amounts range from tens to thousands of euros. The average recovered is approximately €500.",
+    asset1_title: "Bank accounts",
+    asset1_text: "Current accounts and savings accounts (Livret A, PEL, Codevi, CEL) left open after death and unclaimed by heirs.",
+    asset1_avg: "Avg. recovered: ~€300",
+    asset2_title: "Savings plans",
+    asset2_text: "Employee savings plans (PEE), retirement savings plans (PERCO) and other financial products forgotten in successions.",
+    asset2_avg: "Avg. recovered: ~€700",
+    asset3_title: "Life insurance",
+    asset3_text: "Life insurance contracts whose beneficiaries were not notified. These cases can represent the highest amounts.",
+    asset3_avg: "Up to €10,000 and more",
+    assoc_label: "Partners & Commitments",
+    assoc_title: "Our partner associations",
+    assoc_intro: "When a recovered amount is deemed too small for individual transfer, Kléro offers clients the option to donate those funds to one of our partner associations.",
+    assoc_since: "Partner since 2024",
+    assoc_since2: "Partner since 2025",
+    assoc_ffg: "Official member",
+    assoc1_text: "An association committed to reforestation and combating climate change. Every closed case contributes to planting new trees in France.",
+    assoc1_stat: "trees planted thanks to Kléro",
+    assoc2_text: "The Fondation du Patrimoine works to preserve France's architectural and natural heritage. Our partnership supports the restoration of iconic sites.",
+    assoc2_stat: "donated since 2025",
+    assoc3_text: "The FFG is France's reference body for genealogy practice. Our membership guarantees compliance with ethical and professional standards.",
+    assoc3_stat: "Official FFG partner",
+    reviews_label: "Client reviews",
+    reviews_title: "What our clients say",
+    reviews_intro: "Google-verified testimonials from our 398 reviews.",
+    reviews_count: "398 verified Google reviews",
+    review1_text: "\"A serious, very responsive firm. They found funds I didn't even know existed in less than a month, and paid out our share within 24 hours, honouring their fee commitments.\"",
+    review2_text: "\"Maître Branche is very professional and was able to dispel the doubts I had. Thank you.\"",
+    review3_text: "\"Simply perfect. Contacted by their team via the funeral home following my mother's passing. I thought it was a joke, but it wasn't. Excellent team, who explain everything clearly. The firm is very serious — I received news within the timeframe they gave me.\"",
+    review_google: "Verified Google review",
+    reviews_cta: "Read all 398 Google reviews",
+    team_label: "The team",
+    team_title: "Experts at your service",
+    jb_role: "President & Founder",
+    jb_bio: "Member of the Paris Bar since 1983. He assisted hundreds of clients in complex succession matters before founding Kléro in 2022.",
+    lf_role: "Partner — Managing Director",
+    lf_bio: "Responsible for Kléro's operations and development, Louis coordinates partnerships with notaries, town halls and partner institutions across France.",
+    team_note: "Our team also includes <strong>more than 12 specialist staff</strong> — genealogists, lawyers and case managers — including a dedicated representative for Italian cases (Milan / Bergamo), reflecting our international expansion.",
+    faq_label: "Frequently asked questions",
+    faq_title: "Do you have questions?",
+    faq1_q: "How can I be sure Kléro is legitimate?",
+    faq1_a: "Kléro Généalogie was founded in 2022 by a former member of the Paris Bar. We are registered under SIREN number 947 791 927 RCS Paris and are officially accredited by the French Ministry of Culture to consult civil registry records. Every case is supervised by a notary.",
+    faq2_q: "How did you find my contact details?",
+    faq2_a: "We access death certificates via the civil registry, which contain information about the deceased's relatives and notary. From this data, we reconstruct the family tree and make contact via town halls, notaries, funeral homes, or public databases.",
+    faq3_q: "What types of inheritance can Kléro recover?",
+    faq3_a: "These include unclosed bank accounts, savings accounts (Livret A, PEL, Codevi), employee savings plans, and life insurance contracts. The average amount recovered is around €500, but can exceed €10,000.",
+    faq4_q: "How much does it cost?",
+    faq4_a: "Our fees and the notary's fees are deducted solely from funds actually recovered. No advance payment is required. If we find nothing, you pay nothing. The exact percentage is stated in your contract.",
+    faq5_q: "Why do I need to sign a disclosure contract?",
+    faq5_a: "Under Article 36 of the French law of 23 June 2006, signing a disclosure contract is required before we can share succession details with you and act on your behalf. This contract is sent to you for electronic signature.",
+    faq6_q: "How long will it take to receive payment?",
+    faq6_a: "Timelines vary depending on case complexity. Generally, funds are paid out between a few weeks and a few months after signing the contract. Some clients have received payment in under a month.",
+    contact_label: "Contact us",
+    contact_title: "Were you contacted by Kléro?",
+    contact_sub: "Fill in this form and our team will call you back as soon as possible to answer all your questions.",
+    form_first: "First name",
+    form_last: "Last name",
+    form_email: "Email",
+    form_phone: "Phone",
+    form_subject: "Subject",
+    form_s1: "I was contacted by Kléro",
+    form_s2: "Question about my case",
+    form_s3: "General information request",
+    form_s4: "Other",
+    form_msg: "Message",
+    form_send: "Send my request",
+    footer_tag: "Succession genealogy firm, founded in Paris in 2022. We reveal and secure forgotten inheritances.",
+    footer_col1: "Firm",
+    footer_col2: "Information",
+    footer_col3: "Contact",
+    footer_legal: "Legal notice",
+    footer_privacy: "Privacy policy",
+  },
+  it: {
+    nav_how: "Come funziona",
+    nav_about: "Chi siamo",
+    nav_assoc: "Le nostre associazioni",
+    nav_reviews: "Recensioni clienti",
+    nav_contact: "Contattaci",
+    nav_cta: "Sono stato contattato",
+    hero_badge: "🏛 Studio di genealogia successorale accreditato",
+    hero_title1: "Un'eredità dimenticata",
+    hero_title2: "potrebbe aspettarvi.",
+    hero_sub: "Il 7% dei francesi deceduti lascia beni non trasmessi ai propri eredi. Il nostro studio li identifica e vi accompagna fino al rimborso — senza alcuna spesa iniziale.",
+    hero_cta1: "Scopri il nostro metodo",
+    hero_cta2: "Sono stato contattato",
+    stat1: "dei francesi deceduti coinvolti",
+    stat2: "spese se non si trova nulla",
+    stat3: "Fondato a Parigi da un avvocato",
+    strip1: "Accreditato dal Ministero della Cultura",
+    strip2: "Nessuna spesa se non si trova nulla",
+    strip3: "Supervisionato da un notaio",
+    strip4: "Dati sicuri e riservati",
+    how_label: "Il nostro metodo",
+    how_title: "Come funziona?",
+    step1_title: "Identificazione",
+    step1_text: "Analizziamo le banche dati bancarie e notarili per rilevare i beni non trasmessi. Consultiamo i registri dello Stato Civile (atti di morte) grazie alla nostra accreditazione del Ministero della Cultura.",
+    step2_title: "Ricerca",
+    step2_text: "Dagli atti di morte, ricostruiamo l'albero genealogico e identifichiamo gli eredi legittimi. I nostri genealogisti collaborano con notai, comuni e imprese funebri.",
+    step3_title: "Restituzione",
+    step3_text: "Dopo la firma di un contratto di rivelazione, gestiamo tutte le pratiche fino all'erogazione dei fondi — supervisionata da un notaio. Si paga solo in caso di successo.",
+    about_label: "Il nostro fondatore",
+    about_quote: "« La mia esperienza di oltre 40 anni al Foro di Parigi mi ha insegnato che molte famiglie ignorano l'esistenza di beni che spettano loro di diritto. »",
+    about_attr: "Presidente-Fondatore, Avvocato al Foro di Parigi dal 1983",
+    about_label2: "Kléro Généalogie",
+    about_p1: "Fondato nel 2022 a Parigi, Kléro Généalogie è uno studio di genealogia successorale il cui nome si ispira al termine greco antico κλῆρος (klēros) — che significa «eredità». La nostra missione: rivelare e proteggere le eredità dimenticate delle famiglie francesi.",
+    about_p2: "Operiamo in conformità con l'articolo 36 della legge del 23 giugno 2006 sulla riforma delle successioni. Ogni pratica viene trattata con la stessa rigore, che si tratti di poche centinaia o di migliaia di euro.",
+    accred_title: "Accreditamento ufficiale",
+    accred_text: "Kléro Généalogie è ufficialmente accreditata dal Ministero della Cultura francese per consultare i registri dello Stato Civile francese.",
+    why_label: "I nostri impegni",
+    why_title: "Perché scegliere Kléro?",
+    why1_title: "Competenza giuridica",
+    why1_text: "Fondato da un avvocato del Foro di Parigi con oltre 40 anni di esperienza, Kléro padroneggia le sfumature del diritto successorio francese per tutelare i vostri interessi in ogni fase.",
+    why2_title: "Accreditamento ufficiale",
+    why2_text: "Solo gli studi accreditati dal Ministero della Cultura possono consultare i registri dello Stato Civile. Questa abilitazione garantisce la legittimità delle nostre ricerche.",
+    why3_title: "Nessun rischio finanziario",
+    why3_text: "I nostri onorari e quelli del notaio vengono prelevati esclusivamente dai fondi recuperati. Se non troviamo nulla, non pagate nulla. Nessun anticipo richiesto.",
+    why4_title: "Etica e deontologia",
+    why4_text: "Vietiamo qualsiasi molestia o pressione e non contattamo mai gli eredi di domenica o durante i giorni festivi. Verifichiamo sistematicamente l'identità dei nostri interlocutori.",
+    assets_label: "Tipologie di beni",
+    assets_title: "Quali beni possiamo recuperare?",
+    assets_intro: "Gli importi variano da qualche decina a migliaia di euro. La media recuperata è di circa 500 €.",
+    asset1_title: "Conti bancari",
+    asset1_text: "Conti correnti e libretti di risparmio (Livret A, PEL, Codevi, CEL) rimasti aperti dopo il decesso e non reclamati dagli eredi.",
+    asset1_avg: "Media recuperata: ~300 €",
+    asset2_title: "Piani di risparmio",
+    asset2_text: "Piani di risparmio aziendali (PEE), piani di risparmio previdenziali (PERCO) e altri prodotti finanziari dimenticati nelle successioni.",
+    asset2_avg: "Media recuperata: ~700 €",
+    asset3_title: "Assicurazioni sulla vita",
+    asset3_text: "Contratti di assicurazione sulla vita i cui beneficiari non sono stati informati. Questi casi possono rappresentare gli importi più elevati.",
+    asset3_avg: "Fino a 10.000 € e oltre",
+    assoc_label: "Partner e Impegni",
+    assoc_title: "Le nostre associazioni partner",
+    assoc_intro: "Quando un importo recuperato è ritenuto troppo modesto per un bonifico individuale, Kléro propone ai propri clienti di destinare tali fondi a una delle nostre associazioni partner.",
+    assoc_since: "Partner dal 2024",
+    assoc_since2: "Partner dal 2025",
+    assoc_ffg: "Membro ufficiale",
+    assoc1_text: "Un'associazione impegnata nella riforestazione e nella lotta contro i cambiamenti climatici. Ogni pratica conclusa contribuisce a piantare nuovi alberi in Francia.",
+    assoc1_stat: "alberi piantati grazie a Kléro",
+    assoc2_text: "La Fondation du Patrimoine opera per la salvaguardia del patrimonio architettonico e naturale francese. La nostra partnership contribuisce al restauro di siti emblematici.",
+    assoc2_stat: "donati dal 2025",
+    assoc3_text: "La FFG è l'organismo di riferimento in Francia per la pratica della genealogia. La nostra adesione garantisce il rispetto degli standard etici e professionali del settore.",
+    assoc3_stat: "Partner ufficiale FFG",
+    reviews_label: "Recensioni clienti",
+    reviews_title: "Cosa dicono i nostri clienti",
+    reviews_intro: "Testimonianze verificate da Google tra le nostre 398 recensioni.",
+    reviews_count: "398 recensioni Google verificate",
+    review1_text: "« Studio serio, molto reattivo. Lo studio ha ritrovato, in meno di un mese, dei fondi di cui non conoscevo l'esistenza e ci ha versato la nostra parte in 24 ore, rispettando gli impegni presi sulle spese. »",
+    review2_text: "« Maître Branche è molto professionale e ha saputo dissipare i dubbi che avevo. Grazie. »",
+    review3_text: "« Semplicemente perfetto. Contattata dal loro servizio tramite l'impresa funebre a seguito del decesso di mia madre. Ho creduto a uno scherzo, ma non era così. Ottimo team, che spiega bene le cose. Lo studio è molto serio, ho avuto notizie nei tempi che mi avevano indicato. »",
+    review_google: "Recensione Google verificata",
+    reviews_cta: "Leggi le 398 recensioni su Google",
+    team_label: "Il team",
+    team_title: "Esperti al vostro servizio",
+    jb_role: "Presidente-Fondatore",
+    jb_bio: "Avvocato al Foro di Parigi dal 1983. Ha assistito centinaia di clienti in complesse questioni successorie prima di fondare Kléro nel 2022.",
+    lf_role: "Socio — Direttore Generale",
+    lf_bio: "Responsabile delle operazioni e dello sviluppo di Kléro, Louis coordina le partnership con notai, comuni e istituzioni partner in tutta la Francia.",
+    team_note: "Il nostro team comprende anche <strong>più di 12 collaboratori specializzati</strong> — genealogisti, giuristi e gestori di pratiche — tra cui una referente dedicata alle pratiche italiane (Milano / Bergamo), a testimonianza del nostro sviluppo internazionale.",
+    faq_label: "Domande frequenti",
+    faq_title: "Avete delle domande?",
+    faq1_q: "Come essere certi della legittimità di Kléro?",
+    faq1_a: "Kléro Généalogie è stata fondata nel 2022 da un ex avvocato del Foro di Parigi. Siamo registrati con il numero SIREN 947 791 927 RCS Paris. Siamo ufficialmente accreditati dal Ministero della Cultura per consultare i registri dello Stato Civile. Ogni pratica è supervisionata da un notaio.",
+    faq2_q: "Come avete trovato i miei recapiti?",
+    faq2_a: "Accediamo agli atti di morte tramite i registri dello Stato Civile, che contengono informazioni sui familiari e sul notaio del defunto. Da questi dati, ricostruiamo l'albero genealogico e prendiamo contatto tramite comuni, notai, imprese funebri o database pubblici.",
+    faq3_q: "Che tipo di eredità può recuperare Kléro?",
+    faq3_a: "Può trattarsi di conti bancari non chiusi, libretti di risparmio (Livret A, PEL, Codevi), piani di risparmio aziendali o assicurazioni sulla vita. L'importo medio recuperato è di circa 500 €, ma può superare i 10.000 €.",
+    faq4_q: "Quanto costa?",
+    faq4_a: "I nostri onorari e quelli del notaio vengono prelevati esclusivamente dai fondi effettivamente recuperati. Non è richiesto alcun anticipo. Se non troviamo nulla, non pagate nulla.",
+    faq5_q: "Perché firmare un contratto di rivelazione?",
+    faq5_a: "Ai sensi dell'articolo 36 della legge del 23 giugno 2006, la firma di un contratto di rivelazione è necessaria prima che possiamo comunicarvi i dettagli della successione e agire in vostro nome. Il contratto vi viene inviato per firma elettronica.",
+    faq6_q: "In quanto tempo riceverò il pagamento?",
+    faq6_a: "I tempi variano in base alla complessità della pratica. In generale, i fondi vengono erogati tra qualche settimana e qualche mese dopo la firma del contratto. Alcuni clienti hanno ricevuto il pagamento in meno di un mese.",
+    contact_label: "Contattaci",
+    contact_title: "Siete stati contattati da Kléro?",
+    contact_sub: "Compilate questo modulo e il nostro team vi richiamerà al più presto per rispondere a tutte le vostre domande.",
+    form_first: "Nome",
+    form_last: "Cognome",
+    form_email: "Email",
+    form_phone: "Telefono",
+    form_subject: "Oggetto",
+    form_s1: "Sono stato contattato da Kléro",
+    form_s2: "Domanda sulla mia pratica",
+    form_s3: "Richiesta di informazioni generali",
+    form_s4: "Altro",
+    form_msg: "Messaggio",
+    form_send: "Invia la mia richiesta",
+    footer_tag: "Studio di genealogia successorale, fondato a Parigi nel 2022. Riveliamo e proteggiamo le eredità dimenticate.",
+    footer_col1: "Studio",
+    footer_col2: "Informazioni",
+    footer_col3: "Contatti",
+    footer_legal: "Note legali",
+    footer_privacy: "Informativa sulla privacy",
   }
-  function closeMenu() {
-    document.getElementById('mobileOverlay').classList.remove('open');
-    document.getElementById('hamburger').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  function toggleFaq(btn) {
-    const a = btn.nextElementSibling;
-    const wasOpen = a.classList.contains('open');
-    document.querySelectorAll('.faq-a').forEach(x => x.classList.remove('open'));
-    document.querySelectorAll('.faq-q').forEach(x => x.classList.remove('open'));
-    if (!wasOpen) { a.classList.add('open'); btn.classList.add('open'); }
-  }
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+};
+
+let currentLang = 'fr';
+
+function setLang(lang) {
+  currentLang = lang;
+  // Update buttons
+  ['fr','en','it'].forEach(l => {
+    const btn = document.getElementById('btn-' + l);
+    if (btn) btn.classList.toggle('active', l === lang);
+  });
+  // Update mobile buttons
+  document.querySelectorAll('.mobile-lang .lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.toLowerCase() === lang);
+  });
+  // Update html lang
+  document.getElementById('html-root').lang = lang;
+  // Update all i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const t = translations[lang];
+    if (t && t[key] !== undefined) {
+      el.innerHTML = t[key];
+    }
+  });
+}
+
+// ===================== MENU =====================
+function toggleMenu() {
+  const o = document.getElementById('mobileOverlay');
+  const b = document.getElementById('hamburger');
+  o.classList.toggle('open'); b.classList.toggle('open');
+  document.body.style.overflow = o.classList.contains('open') ? 'hidden' : '';
+}
+function closeMenu() {
+  document.getElementById('mobileOverlay').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ===================== FAQ =====================
+function toggleFaq(btn) {
+  const a = btn.nextElementSibling;
+  const wasOpen = a.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(x => x.classList.remove('open'));
+  document.querySelectorAll('.faq-q').forEach(x => x.classList.remove('open'));
+  if (!wasOpen) { a.classList.add('open'); btn.classList.add('open'); }
+}
+
+// ===================== SCROLL REVEAL =====================
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
